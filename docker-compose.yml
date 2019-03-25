@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  buildbot:
+    image: cjolowicz/buildbot-master:1.8.0
+    build: .
+    init: true
+    ports:
+      - "8010:8010"
+      - "9989:9989"
+    volumes:
+      - buildbot:/var/lib/buildbot
+      - /var/run/docker.sock:/var/run/docker.sock
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+volumes:
+  buildbot:
