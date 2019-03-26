@@ -4,7 +4,8 @@ RUN apk add --no-cache \
     build-base \
     libffi-dev \
     openssl-dev \
-    python3-dev
+    python3-dev \
+    su-exec
 
 ENV BUILDBOT_VERSION 1.8.0
 RUN pip3 --no-cache-dir install --upgrade pip && \
