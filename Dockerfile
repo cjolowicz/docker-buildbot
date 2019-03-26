@@ -11,9 +11,7 @@ RUN pip3 --no-cache-dir install --upgrade pip && \
     pip --no-cache-dir install docker && \
     pip --no-cache-dir install buildbot[bundle,tls]==$BUILDBOT_VERSION
 
-RUN adduser -Dh /var/lib/buildbot buildbot
 WORKDIR /var/lib/buildbot
-USER buildbot
 
 COPY buildbot.tac .
 COPY master.cfg .
