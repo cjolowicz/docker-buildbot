@@ -13,7 +13,7 @@ This project has a [changelog](CHANGELOG.md).
 
 ## Usage
 
-Use the provided `docker-compose.yml` file to start the
+Use the provided [docker-compose.yml](docker-compose.yml) file to start the
 container. This will mount a volume onto `/var/lib/buildbot`,
 containing a sample `master.cfg` file.
 
