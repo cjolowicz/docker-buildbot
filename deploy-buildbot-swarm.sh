@@ -40,3 +40,4 @@ token=$(docker swarm join-token --quiet worker)
 )
 
 docker stack deploy -c docker-compose.yml buildbot
+docker service ls
