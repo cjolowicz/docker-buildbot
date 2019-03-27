@@ -30,7 +30,7 @@ Here is a list of available targets:
 | `make push` | Upload the image to Docker Hub. |
 | `make login` | Log into Docker Hub. |
 
-Pass `REPO` to prefix the image with a Docker Hub repository name. The
+Pass `NAMESPACE` to prefix the image with a Docker Hub namespace. The
 default is `DOCKER_USERNAME`.
 
 The `login` target is provided for non-interactive use and looks

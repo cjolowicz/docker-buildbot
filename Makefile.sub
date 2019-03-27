@@ -1,9 +1,9 @@
 NAME = $(notdir $(CURDIR))
 
-ifeq ($(strip $(REPO)),)
+ifeq ($(strip $(NAMESPACE)),)
     IMAGE = $(NAME):1.8.0
 else
-    IMAGE = $(REPO)/$(NAME):1.8.0
+    IMAGE = $(NAMESPACE)/$(NAME):1.8.0
 endif
 
 all: build

@@ -1,5 +1,5 @@
 export TOPDIR = $(shell pwd)
-export REPO = $(DOCKER_USERNAME)
+export NAMESPACE = $(DOCKER_USERNAME)
 
 DIRS = buildbot-master
 
