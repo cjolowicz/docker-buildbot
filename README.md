@@ -4,16 +4,17 @@
 
 # docker-buildbot
 
-This repository contains a [Docker image](buildbot/Dockerfile)
-for [buildbot](https://buildbot.net/).
+This repository contains a [Docker image](buildbot/Dockerfile) for
+[buildbot](https://buildbot.net/), the Continuous Integration
+Framework. The container runs an instance of the buildbot master.
+Buildbot workers are spawned as sibling containers, on demand.
 
 This project has a [changelog](CHANGELOG.md).
 
 ## Usage
 
-Use `docker-compose up` with the supplied
-[docker-compose.yml](docker-compose.yml) file to start the master
-container. Here is a one-liner to get you started:
+Use the supplied [docker-compose.yml](docker-compose.yml) file to
+start the master container. Here is a one-liner to get you started:
 
 ```shell
 curl -L https://raw.githubusercontent.com/cjolowicz/docker-buildbot/master/docker-compose.yml | \
@@ -21,16 +22,17 @@ curl -L https://raw.githubusercontent.com/cjolowicz/docker-buildbot/master/docke
 ```
 
 Then point your browser to http://localhost:8010 to access the web
-interface. Navigate to _Builds_ > _Builders_ > _hello-world_, and
-trigger a build using the _trigger_ button.
+interface.
+
+Navigate to _Builds_ > _Builders_ > _hello-world_, and click the
+_trigger_ button.
 
 ## Configuration
 
-The supplied `docker-compose.yml` file creates a volume for
-`/var/lib/buildbot`, and pre-populates it with a sample
-[master.cfg](buildbot/master.cfg) file. To supply your own buildbot
-configuration, either install it to the volume, or derive your own
-image.
+Docker Compose creates a volume for `/var/lib/buildbot`, and
+pre-populates it with a sample [master.cfg](buildbot/master.cfg)
+file. To supply your own buildbot configuration, either install it to
+the volume, or derive your own image.
 
 Expose port 9989 on the host if you need to run workers outside of
 Docker. This is done by adding the following line to the `ports`
