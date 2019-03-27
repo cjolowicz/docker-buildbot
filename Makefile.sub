@@ -1,0 +1,30 @@
+NAME = $(notdir $(CURDIR))
+
+ifeq ($(strip $(REPO)),)
+    IMAGE = $(NAME):1.8.0
+else
+    IMAGE = $(REPO)/$(NAME):1.8.0
+endif
+
+all: build
+
+build: Dockerfile
+	if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
+	        grep -q '^$(IMAGE)$$' ; then \
+	    docker build \
+	        --tag=$(IMAGE) \
+	        --cache-from=$(IMAGE) \
+	        . ; \
+	else \
+	    docker build \
+	        --tag=$(IMAGE) \
+	        . ; \
+	fi
+
+push: build
+	docker push $(IMAGE)
+
+pull:
+	docker pull $(IMAGE)
+
+.PHONY: all build push pull

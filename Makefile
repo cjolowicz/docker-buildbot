@@ -1,34 +1,26 @@
-REPO = $(DOCKER_USERNAME)
+export TOPDIR = $(shell pwd)
+export REPO = $(DOCKER_USERNAME)
 
-ifeq ($(strip $(REPO)),)
-    IMAGE = buildbot-master:1.8.0
-else
-    IMAGE = $(REPO)/buildbot-master:1.8.0
-endif
+DIRS = buildbot-master
 
 all: build
 
-build: Dockerfile
-	if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
-	        grep -q '^$(IMAGE)$$' ; then \
-	    docker build \
-	        --tag=$(IMAGE) \
-	        --cache-from=$(IMAGE) \
-	        . ; \
-	else \
-	    docker build \
-	        --tag=$(IMAGE) \
-	        . ; \
-	fi
+build:
+	set -ex; for dir in $(DIRS) ; do \
+	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir build ; \
+	done
 
-push: build
-	docker push $(IMAGE)
+push:
+	set -ex; for dir in $(DIRS) ; do \
+	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir push ; \
+	done
 
 pull:
-	docker pull $(IMAGE)
+	set -x; for dir in $(DIRS) ; do \
+	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir pull ; \
+	done
 
 login:
 	echo "$(DOCKER_PASSWORD)" | docker login -u $(DOCKER_USERNAME) --password-stdin
 
 .PHONY: all build push pull login
-
