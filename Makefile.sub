@@ -1,3 +1,4 @@
+export NAMESPACE = $(DOCKER_USERNAME)
 NAME = $(notdir $(CURDIR))
 
 ifeq ($(strip $(NAMESPACE)),)
