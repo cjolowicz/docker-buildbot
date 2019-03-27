@@ -16,7 +16,7 @@ Use `docker-compose up` with the supplied
 container. Then point your browser to http://localhost:8010.
 
 ```shell
-curl -L https://github.com/cjolowicz/docker-buildbot-master/blob/master/docker-compose.yml | docker-compose -f- up
+curl -L https://raw.githubusercontent.com/cjolowicz/docker-buildbot-master/master/docker-compose.yml | docker-compose -f- up
 ```
 
 This creates a volume for `/var/lib/buildbot`, and pre-populates it
