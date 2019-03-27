@@ -8,7 +8,7 @@ then
         '--remove' | '--rm')
             set +e -x
 
-            docker stack rm buildbot
+            docker-machine ssh manager "docker stack rm buildbot"
             docker-machine rm -f worker
             docker-machine rm -f manager
 
