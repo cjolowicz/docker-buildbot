@@ -8,6 +8,8 @@ services:
     volumes:
       - buildbot:/var/lib/buildbot
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DOCKER_HOST:
     logging:
       options:
         max-size: "10m"
