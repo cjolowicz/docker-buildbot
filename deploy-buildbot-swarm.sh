@@ -25,8 +25,7 @@ set -x
 docker-machine create --driver virtualbox manager
 docker-machine create --driver virtualbox worker
 
-manager_ip=$(docker-machine ls --format='{{.URL}}' --filter='name=manager' |
-         sed -e 's,^tcp://,,' -e 's/:[^:]*$//')
+manager_ip=$(docker-machine ip manager)
 
 eval $(docker-machine env manager)
 
