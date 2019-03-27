@@ -1,10 +1,10 @@
-[![Build Status](https://travis-ci.com/cjolowicz/docker-buildbot-master.svg?branch=master)](https://travis-ci.com/cjolowicz/docker-buildbot-master)
-[![Docker Hub](https://img.shields.io/docker/cloud/build/cjolowicz/buildbot-master.svg)](https://hub.docker.com/r/cjolowicz/buildbot-master)
+[![Build Status](https://travis-ci.com/cjolowicz/docker-buildbot.svg?branch=master)](https://travis-ci.com/cjolowicz/docker-buildbot)
+[![Docker Hub](https://img.shields.io/docker/cloud/build/cjolowicz/buildbot.svg)](https://hub.docker.com/r/cjolowicz/buildbot)
 [![Buildbot](https://img.shields.io/badge/buildbot-1.8.0-brightgreen.svg)](https://buildbot.net/)
 
-# docker-buildbot-master
+# docker-buildbot
 
-This repository contains a [Docker image](buildbot-master/Dockerfile)
+This repository contains a [Docker image](buildbot/Dockerfile)
 for [buildbot](https://buildbot.net/).
 
 This project has a [changelog](CHANGELOG.md).
@@ -16,11 +16,11 @@ Use `docker-compose up` with the supplied
 container. Then point your browser to http://localhost:8010.
 
 ```shell
-curl -L https://raw.githubusercontent.com/cjolowicz/docker-buildbot-master/master/docker-compose.yml | docker-compose -f- up
+curl -L https://raw.githubusercontent.com/cjolowicz/docker-buildbot/master/docker-compose.yml | docker-compose -f- up
 ```
 
 This creates a volume for `/var/lib/buildbot`, and pre-populates it
-with a sample [master.cfg](buildbot-master/master.cfg) file. To supply
+with a sample [master.cfg](buildbot/master.cfg) file. To supply
 your own buildbot configuration, either install it to the volume, or
 derive your own image.
 
@@ -37,7 +37,7 @@ to be located at `/var/run/docker.sock`, and it must be group-writable.
 
 The Docker container drops privileges on startup using
 [su-exec](https://github.com/ncopa/su-exec). See the provided
-[entrypoint script](buildbot-master/docker-entrypoint.sh) for the
+[entrypoint script](buildbot/docker-entrypoint.sh) for the
 detailed startup sequence.
 
 This Docker image does not have

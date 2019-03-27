@@ -8,4 +8,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial version: buildbot 1.8.0
 
-[Unreleased]: https://github.com/cjolowicz/docker-buildbot-master/commits/master
+[Unreleased]: https://github.com/cjolowicz/docker-buildbot/commits/master

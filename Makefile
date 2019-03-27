@@ -1,6 +1,6 @@
 export TOPDIR = $(shell pwd)
 
-DIRS = buildbot-master buildbot-worker-example
+DIRS = buildbot buildbot-worker-example
 
 all: build
 
