@@ -13,16 +13,32 @@ This project has a [changelog](CHANGELOG.md).
 
 Use `docker-compose up` with the supplied
 [docker-compose.yml](docker-compose.yml) file to start the master
-container. Then point your browser to http://localhost:8010.
+container. Here is a one-liner to get you started:
 
 ```shell
-curl -L https://raw.githubusercontent.com/cjolowicz/docker-buildbot/master/docker-compose.yml | docker-compose -f- up
+curl -L https://raw.githubusercontent.com/cjolowicz/docker-buildbot/master/docker-compose.yml | \
+    docker-compose -f- up
 ```
 
-This creates a volume for `/var/lib/buildbot`, and pre-populates it
-with a sample [master.cfg](buildbot/master.cfg) file. To supply
-your own buildbot configuration, either install it to the volume, or
-derive your own image.
+Then point your browser to http://localhost:8010 to access the web
+interface. Navigate to _Builds_ > _Builders_ > _hello-world_, and
+trigger a build using the _trigger_ button.
+
+## Configuration
+
+The supplied `docker-compose.yml` file creates a volume for
+`/var/lib/buildbot`, and pre-populates it with a sample
+[master.cfg](buildbot/master.cfg) file. To supply your own buildbot
+configuration, either install it to the volume, or derive your own
+image.
+
+Expose port 9989 on the host if you need to run workers outside of
+Docker. This is done by adding the following line to the `ports`
+section of `docker-compose.yml`:
+
+```yaml
+      - "9989:9989"
+```
 
 ## Differences from upstream
 
@@ -30,10 +46,11 @@ This Docker image is loosely based on the buildbot
 [official image](https://github.com/buildbot/buildbot/tree/master/master/Dockerfile),
 but there are some important differences.
 
-This Docker image is designed to spawn buildbot workers on demand, as
-sibling containers. To this purpose, the Docker daemon socket is
+This Docker image is designed to spawn buildbot workers as sibling
+containers, on demand. To this purpose, the Docker daemon socket is
 bind-mounted into the container. The Docker daemon socket is expected
-to be located at `/var/run/docker.sock`, and it must be group-writable.
+to be located at `/var/run/docker.sock`, and it must be
+group-writable.
 
 The Docker container drops privileges on startup using
 [su-exec](https://github.com/ncopa/su-exec). See the provided
@@ -48,7 +65,7 @@ version of Docker, you will need to install `tini` in your master and
 worker images, to ensure zombie processes created by builds are reaped
 during the lifetime of each container.
 
-## Building
+## Building the Docker images
 
 The supplied [Makefile](Makefile) will build the master image as well
 as an example worker image used by the sample configuration. Building
