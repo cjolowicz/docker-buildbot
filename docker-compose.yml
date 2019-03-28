@@ -11,6 +11,9 @@ services:
     environment:
       DOCKER_HOST:
       DOCKER_TLS_VERIFY:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
     logging:
       options:
         max-size: "10m"
