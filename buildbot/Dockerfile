@@ -4,8 +4,7 @@ RUN apk add --no-cache \
     build-base \
     libffi-dev \
     openssl-dev \
-    python3-dev \
-    su-exec
+    python3-dev
 
 ENV BUILDBOT_VERSION 1.8.0
 RUN pip3 --no-cache-dir install --upgrade pip && \
@@ -17,6 +16,12 @@ WORKDIR /var/lib/buildbot
 COPY buildbot.tac .
 COPY master.cfg .
 COPY docker-entrypoint.sh /usr/local/bin/
+
+RUN set -ex; \
+    adduser -h /var/lib/buildbot -D buildbot; \
+    chown -R buildbot /var/lib/buildbot
+
+USER buildbot
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["twistd", "--pidfile=", "--nodaemon", "--python=buildbot.tac"]
