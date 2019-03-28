@@ -20,6 +20,6 @@ pull:
 	done
 
 login:
-	echo "$(DOCKER_PASSWORD)" | docker login -u $(DOCKER_USERNAME) --password-stdin
+	@echo "$(DOCKER_PASSWORD)" | docker login -u $(DOCKER_USERNAME) --password-stdin
 
 .PHONY: all build push pull login
