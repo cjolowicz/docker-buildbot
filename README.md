@@ -2,6 +2,10 @@
 [![Docker Hub](https://img.shields.io/docker/cloud/build/cjolowicz/buildbot.svg)](https://hub.docker.com/r/cjolowicz/buildbot)
 [![Buildbot](https://img.shields.io/badge/buildbot-1.8.0-brightgreen.svg)](https://buildbot.net/)
 
+**Disclaimer: Work in progress**
+
+*This project is currently being converted to spawn workers on Docker Swarm. Check out [deploy-buildbot-swarm.sh](deploy-buildbot-swarm.sh) for a proof of concept.*
+
 # docker-buildbot
 
 This repository contains a [Docker image](buildbot/Dockerfile) for
