@@ -8,7 +8,7 @@ RUN apk add --no-cache \
 
 ENV BUILDBOT_VERSION 1.8.0
 RUN pip3 --no-cache-dir install --upgrade pip && \
-    pip --no-cache-dir install docker && \
+    pip --no-cache-dir install 'https://github.com/cjolowicz/buildbot-docker-swarm-worker/archive/master.zip' && \
     pip --no-cache-dir install buildbot[bundle,tls]==$BUILDBOT_VERSION
 
 WORKDIR /var/lib/buildbot
