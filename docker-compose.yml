@@ -26,6 +26,15 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+  system-prune:
+    image: docker:latest
+    command: docker system prune --all --force
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global
+      restart_policy:
+        delay: 24h
 volumes:
   buildbot:
 secrets:
