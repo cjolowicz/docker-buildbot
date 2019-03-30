@@ -6,6 +6,11 @@
 
 *This project is currently being converted to spawn workers on Docker Swarm.*
 
+```shell
+eval ./hash-service-config.sh
+docker stack deploy --compose-file=docker-compose.yml buildbot
+```
+
 # docker-buildbot
 
 This repository contains a [Docker image](buildbot/Dockerfile) for
