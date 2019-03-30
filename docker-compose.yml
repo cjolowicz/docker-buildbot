@@ -12,6 +12,9 @@ services:
       DOCKER_HOST:
       DOCKER_TLS_VERIFY:
       DOCKER_CERT_PATH: /run/secrets
+    configs:
+      - source: master.cfg
+        target: /var/lib/buildbot/master.cfg
     secrets:
       - ca.pem
       - cert.pem
@@ -32,3 +35,6 @@ secrets:
     file: $HOME/.docker/machine/certs/cert.pem
   key.pem:
     file: $HOME/.docker/machine/certs/key.pem
+configs:
+  master.cfg:
+    file: ./master.cfg

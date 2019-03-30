@@ -14,7 +14,6 @@ RUN pip3 --no-cache-dir install --upgrade pip && \
 WORKDIR /var/lib/buildbot
 
 COPY buildbot.tac .
-COPY master.cfg .
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN set -ex; \
