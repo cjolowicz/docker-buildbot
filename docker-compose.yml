@@ -38,3 +38,4 @@ secrets:
 configs:
   master.cfg:
     file: ./master.cfg
+    name: buildbot-master-cfg-${BUILDBOT_MASTER_CFG_HASH:?BUILDBOT_MASTER_CFG_HASH}
