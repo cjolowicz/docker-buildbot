@@ -12,7 +12,7 @@ RUN pip3 --no-cache-dir install --upgrade pip && pip --no-cache-dir install \
     buildbot[bundle,tls]==$BUILDBOT_VERSION \
     https://github.com/cjolowicz/buildbot-docker-swarm-worker/archive/$BUILDBOT_DOCKER_SWARM_WORKER_COMMIT.zip
 
-COPY buildbot.tac /usr/local/lib
+COPY buildbot.tac .
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN adduser -h /var/lib/buildbot -D buildbot
@@ -20,4 +20,4 @@ USER buildbot
 WORKDIR /var/lib/buildbot
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["twistd", "--pidfile=", "--nodaemon", "--python=/usr/local/lib/buildbot.tac"]
+CMD ["twistd", "--pidfile=", "--nodaemon", "--python=buildbot.tac"]
