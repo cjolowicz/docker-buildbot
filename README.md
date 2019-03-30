@@ -4,7 +4,7 @@
 
 **Disclaimer: Work in progress**
 
-*This project is currently being converted to spawn workers on Docker Swarm. Check out [deploy-buildbot-swarm.sh](deploy-buildbot-swarm.sh) for a proof of concept.*
+*This project is currently being converted to spawn workers on Docker Swarm.*
 
 # docker-buildbot
 
