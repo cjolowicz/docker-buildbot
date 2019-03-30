@@ -6,7 +6,7 @@ RUN apk add --no-cache \
     openssl-dev \
     python3-dev
 
-ENV BUILDBOT_DOCKER_SWARM_WORKER_COMMIT 912751162efe3fc573ce6d92e1c2db3317252a19
+ENV BUILDBOT_DOCKER_SWARM_WORKER_COMMIT e5ccd3848e042457a5af67a892f4fa49516ed93d
 ENV BUILDBOT_VERSION 1.8.0
 RUN pip3 --no-cache-dir install --upgrade pip && pip --no-cache-dir install \
     buildbot[bundle,tls]==$BUILDBOT_VERSION \
