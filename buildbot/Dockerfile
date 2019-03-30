@@ -12,7 +12,7 @@ RUN pip3 --no-cache-dir install --upgrade pip && pip --no-cache-dir install \
     buildbot[bundle,tls]==$BUILDBOT_VERSION \
     https://github.com/cjolowicz/buildbot-docker-swarm-worker/archive/$BUILDBOT_DOCKER_SWARM_WORKER_COMMIT.zip
 
-COPY buildbot.tac .
+COPY buildbot.tac /var/lib/buildbot/
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN adduser -h /var/lib/buildbot -D buildbot
