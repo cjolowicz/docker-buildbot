@@ -13,7 +13,7 @@ RUN pip3 --no-cache-dir install --upgrade pip && \
 
 WORKDIR /var/lib/buildbot
 
-COPY buildbot.tac .
+COPY buildbot.tac /usr/local/lib
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN set -ex; \
@@ -23,4 +23,4 @@ RUN set -ex; \
 USER buildbot
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["twistd", "--pidfile=", "--nodaemon", "--python=buildbot.tac"]
+CMD ["twistd", "--pidfile=", "--nodaemon", "--python=/usr/local/lib/buildbot.tac"]
