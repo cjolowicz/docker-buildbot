@@ -7,7 +7,6 @@ services:
       - "8010:8010"
     volumes:
       - buildbot:/var/lib/buildbot
-      - /home/docker/.docker:/var/lib/buildbot/.docker
     environment:
       DOCKER_HOST:
       DOCKER_TLS_VERIFY:
