@@ -7,17 +7,10 @@ services:
       - "8010:8010"
     volumes:
       - buildbot:/var/lib/buildbot
-    environment:
-      DOCKER_HOST:
-      DOCKER_TLS_VERIFY:
-      DOCKER_CERT_PATH: /run/secrets
+      - /var/run/docker.sock:/var/run/docker.sock
     configs:
       - source: master.cfg
         target: /var/lib/buildbot/master.cfg
-    secrets:
-      - ca.pem
-      - cert.pem
-      - key.pem
     deploy:
       placement:
         constraints: [node.role == manager]
@@ -27,13 +20,6 @@ services:
         max-file: "10"
 volumes:
   buildbot:
-secrets:
-  ca.pem:
-    file: $HOME/.docker/machine/certs/ca.pem
-  cert.pem:
-    file: $HOME/.docker/machine/certs/cert.pem
-  key.pem:
-    file: $HOME/.docker/machine/certs/key.pem
 configs:
   master.cfg:
     file: ./master.cfg
