@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  buildbot:
+    image: cjolowicz/buildbot:1.8.0
+    init: true
+    ports:
+      - "8010:8010"
+    volumes:
+      - buildbot:/var/lib/buildbot
+      - /var/run/docker.sock:/var/run/docker.sock
+    configs:
+      - source: master.cfg
+        target: /var/lib/buildbot/master.cfg
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+volumes:
+  buildbot:
+configs:
+  master.cfg:
+    file: ./master.cfg
+    name: buildbot-master-cfg-${BUILDBOT_MASTER_CFG_HASH:?BUILDBOT_MASTER_CFG_HASH}
