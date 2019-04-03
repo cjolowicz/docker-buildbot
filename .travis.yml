@@ -5,4 +5,4 @@ services:
 
 script:
   - make pull || true
-  - make login push
+  - make push

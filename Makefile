@@ -9,7 +9,7 @@ build:
 	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir build ; \
 	done
 
-push:
+push: login
 	set -ex; for dir in $(DIRS) ; do \
 	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir push ; \
 	done
