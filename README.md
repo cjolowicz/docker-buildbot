@@ -140,3 +140,8 @@ default is `DOCKER_USERNAME`.
 
 The `login` target is provided for non-interactive use and looks
 for `DOCKER_USERNAME` and `DOCKER_PASSWORD`.
+
+## Related projects
+
+- https://github.com/cjolowicz/buildbot-docker-swarm-worker
+- https://github.com/cjolowicz/docker-buildbot-worker
