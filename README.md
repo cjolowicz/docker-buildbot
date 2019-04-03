@@ -2,8 +2,6 @@
 [![Docker Hub](https://img.shields.io/docker/cloud/build/cjolowicz/buildbot.svg)](https://hub.docker.com/r/cjolowicz/buildbot)
 [![Buildbot](https://img.shields.io/badge/buildbot-1.8.0-brightgreen.svg)](https://buildbot.net/)
 
-**Disclaimer: Work in progress**
-
 # docker-buildbot
 
 This repository contains a [Docker image](buildbot/Dockerfile) for
