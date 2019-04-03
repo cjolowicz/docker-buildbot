@@ -6,11 +6,10 @@ RUN apk add --no-cache \
     openssl-dev \
     python3-dev
 
-ENV BUILDBOT_DOCKER_SWARM_WORKER_VERSION 0.1.2
 ENV BUILDBOT_VERSION 1.8.0
 RUN pip3 --no-cache-dir install --upgrade pip && pip --no-cache-dir install \
     buildbot[bundle,tls]==$BUILDBOT_VERSION \
-    buildbot-docker-swarm-worker==$BUILDBOT_DOCKER_SWARM_WORKER_VERSION
+    buildbot-docker-swarm-worker
 
 COPY buildbot.tac /var/lib/buildbot/
 COPY docker-entrypoint.sh /usr/local/bin/
