@@ -18,11 +18,12 @@ This project has a [changelog](CHANGELOG.md).
 ### Docker Compose
 
 Use the supplied [docker-compose.yml](docker-compose.yml) file to
-start the master container. Here is a one-liner to get you started:
+start the master container.
 
 ```shell
-curl -L https://raw.githubusercontent.com/cjolowicz/docker-buildbot/master/docker-compose.yml | \
-    docker-compose -f- up
+git clone https://github.com/cjolowicz/docker-buildbot.git
+cd docker-buildbot
+docker-compose up
 ```
 
 Then point your browser to http://localhost:8010 to access the web
@@ -31,20 +32,8 @@ interface.
 Navigate to _Builds_ > _Builders_ > _hello-world_, and click the
 _trigger_ button.
 
-#### Configuration
-
-Docker Compose creates a volume for `/var/lib/buildbot`, and
-pre-populates it with a sample [master.cfg](buildbot/master.cfg)
-file. To supply your own buildbot configuration, either install it to
-the volume, or derive your own image.
-
-Expose port 9989 on the host if you need to run workers outside of
-Docker. This is done by adding the following line to the `ports`
-section of `docker-compose.yml`:
-
-```yaml
-      - "9989:9989"
-```
+Edit [master.cfg](master.cfg) to configure buildbot. This file is
+bind-mounted into the container at `/etc/buildbot/master.cfg`.
 
 ### Docker Swarm
 
@@ -60,13 +49,38 @@ Buildbot workers are spawned as Docker services, using the
 [buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
 plugin.
 
-#### Configuration
+Note that an `eval` of the
+[hash-service-config.sh](hash-service-config.sh) output is required
+after every change to `master.cfg`, to include the new configuration
+in the deployment.
 
-Edit [master.cfg](master.cfg) to supply your own buildbot
-configuration, and redeploy as described above. Note that an `eval` of
-the [hash-service-config.sh](hash-service-config.sh) output is
-required after every configuration change, to include the new
-configuration in the deployment.
+## Configuration
+
+### Configuring the buildbot URL
+
+Use the `BUILDBOT_URL` environment variable to configure the external
+URL at which the web interface is accessed. This corresponds to the
+`buildbotURL` entry in `BuildmasterConfig`.
+
+If `BUILDBOT_URL` is unset but `DOCKER_HOST` is set, its value is used
+to provide a default for `BUILDBOT_URL`. Otherwise, `buildbotURL`
+defaults to `http://localhost:8010`.
+
+An incorrect buildbot URL results in errors in the web interface,
+because requests to the API violate the Same Origin Policy. An example
+would be the following message when triggering a build:
+
+    "invalid origin"
+
+### Running workers outside of Docker
+
+Expose port 9989 on the host if you need to run workers outside of
+Docker. This is done by adding the following line to the `ports`
+section of `docker-compose.yml` or `buildbot.yml`:
+
+```yaml
+      - "9989:9989"
+```
 
 ## Differences from upstream
 
@@ -74,16 +88,27 @@ This Docker image is loosely based on the buildbot
 [official image](https://github.com/buildbot/buildbot/tree/master/master/Dockerfile),
 but there are some important differences.
 
+### Bind-mounting the Docker daemon socket
+
 This Docker image is designed to spawn buildbot workers as sibling
 containers, on demand. To this purpose, the Docker daemon socket is
-bind-mounted into the container. The Docker daemon socket is expected
-to be located at `/var/run/docker.sock`, and it must be
+bind-mounted into the master container. The Docker daemon socket is
+expected to be located at `/var/run/docker.sock`, and it must be
 group-writable.
+
+Note that this has important
+[security implications](https://docs.docker.com/engine/security/security/). Essentially,
+access to the Docker daemon socket implies root privileges on the
+Docker host.
+
+### Dropping privileges
 
 The Docker container drops privileges on startup using
 [su-exec](https://github.com/ncopa/su-exec). See the provided
 [entrypoint script](buildbot/docker-entrypoint.sh) for the
 detailed startup sequence.
+
+### Reaping zombie processes
 
 This Docker image does not have
 [dumb-init](https://github.com/Yelp/dumb-init) installed. Modern
