@@ -4,13 +4,6 @@
 
 **Disclaimer: Work in progress**
 
-*This project is currently being converted to spawn workers on Docker Swarm.*
-
-```shell
-eval $(./hash-service-config.sh)
-docker stack deploy --compose-file=docker-compose.yml buildbot
-```
-
 # docker-buildbot
 
 This repository contains a [Docker image](buildbot/Dockerfile) for
@@ -21,6 +14,8 @@ Buildbot workers are spawned as sibling containers, on demand.
 This project has a [changelog](CHANGELOG.md).
 
 ## Usage
+
+### Docker Compose
 
 Use the supplied [docker-compose.yml](docker-compose.yml) file to
 start the master container. Here is a one-liner to get you started:
@@ -36,7 +31,7 @@ interface.
 Navigate to _Builds_ > _Builders_ > _hello-world_, and click the
 _trigger_ button.
 
-## Configuration
+#### Configuration
 
 Docker Compose creates a volume for `/var/lib/buildbot`, and
 pre-populates it with a sample [master.cfg](buildbot/master.cfg)
@@ -50,6 +45,28 @@ section of `docker-compose.yml`:
 ```yaml
       - "9989:9989"
 ```
+
+### Docker Swarm
+
+Use the supplied [buildbot.yml](buildbot.yml) file to deploy the
+stack.
+
+```shell
+eval $(./hash-service-config.sh)
+docker stack deploy --compose-file=buildbot.yml buildbot
+```
+
+Buildbot workers are spawned as Docker services, using the
+[buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
+plugin.
+
+#### Configuration
+
+Edit [master.cfg](master.cfg) to supply your own buildbot
+configuration, and redeploy as described above. Note that an `eval` of
+the [hash-service-config.sh](hash-service-config.sh) output is
+required after every configuration change, to include the new
+configuration in the deployment.
 
 ## Differences from upstream
 
@@ -89,6 +106,7 @@ Here is a list of available targets:
 | --- | --- |
 | `make build` | Build the images. |
 | `make push` | Upload the images to Docker Hub. |
+| `make pull` | Download the images from Docker Hub. |
 | `make login` | Log into Docker Hub. |
 
 Pass `NAMESPACE` to prefix the images with a Docker Hub namespace. The
