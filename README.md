@@ -41,7 +41,7 @@ Use the supplied [buildbot.yml](buildbot.yml) file to deploy the
 stack.
 
 ```shell
-eval $(./hash-service-config.sh)
+eval $(./buildbot-env.sh)
 docker stack deploy --compose-file=buildbot.yml buildbot
 ```
 
@@ -49,10 +49,11 @@ Buildbot workers are spawned as Docker services, using the
 [buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
 plugin.
 
-Note that an `eval` of the
-[hash-service-config.sh](hash-service-config.sh) output is required
-after every change to `master.cfg`, to include the new configuration
-in the deployment.
+The script [buildbot-env.sh](buildbot-env.sh) prints shell commands to
+set up environment variables for buildbot deployment. The output of
+this script should be evaluated by the calling shell, as shown
+above. This is required after every change to `master.cfg`, for the
+new configuration to get deployed to the stack.
 
 ## Configuration
 
