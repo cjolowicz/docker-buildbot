@@ -2,6 +2,11 @@
 
 set -e
 
+if [ ! -L master.cfg ]
+then
+    ln -s /etc/buildbot/master.cfg
+fi
+
 buildbot upgrade-master .
 
 chown -R buildbot /var/lib/buildbot

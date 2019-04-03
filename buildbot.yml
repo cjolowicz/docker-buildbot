@@ -10,7 +10,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     configs:
       - source: master.cfg
-        target: /var/lib/buildbot/master.cfg
+        target: /etc/buildbot/master.cfg
     deploy:
       placement:
         constraints: [node.role == manager]
