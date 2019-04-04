@@ -12,7 +12,7 @@ TAGS = $(shell \
     tag="$(VERSION)" ; \
     while : ; do \
         echo "$$tag" ; \
-        [[ "$$tag" =~ [.-] ]] || break ; \
+        echo "$$tag" | grep -q [.-] || break ; \
         tag="$${tag%[.-]*}" ; \
     done ; \
     echo "latest")
