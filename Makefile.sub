@@ -1,9 +1,10 @@
+VERSION = 1.8.0
 NAME = $(notdir $(CURDIR))
 
 ifeq ($(strip $(NAMESPACE)),)
-    IMAGE = $(NAME):1.8.0
+    IMAGE = $(NAME):$(VERSION)
 else
-    IMAGE = $(NAMESPACE)/$(NAME):1.8.0
+    IMAGE = $(NAMESPACE)/$(NAME):$(VERSION)
 endif
 
 all: build
