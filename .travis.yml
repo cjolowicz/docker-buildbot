@@ -3,6 +3,14 @@ language: bash
 services:
   - docker
 
-script:
-  - make pull || true
-  - make push
+stages:
+  - name: deploy
+    if: tag IS present
+
+jobs:
+  include:
+    - script:
+        - make pull || true
+        - make
+    - stage: deploy
+      script: make push
