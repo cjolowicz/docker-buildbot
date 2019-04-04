@@ -18,26 +18,17 @@ TAGS = $(shell \
     echo "latest")
 
 IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
+IMAGE = $(firstword $(IMAGES))
+BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 
 all: build
 
 build: Dockerfile
 	@if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
-	        grep -q '^$(REPO):$(VERSION)$$' ; then \
-	    ( \
-	        set -x ; \
-	        docker build \
-	            $(patsubst %, --tag=%, $(IMAGES)) \
-	            --cache-from=$(REPO):$(VERSION) \
-	            . ; \
-	    ) ; \
+	        grep -q '^$(IMAGE)$$' ; then \
+	    ( set -x ; docker build $(BUILDFLAGS) --cache-from=$(IMAGE) . ) ; \
 	else \
-	    ( \
-	        set -x ; \
-	        docker build \
-	            $(patsubst %, --tag=%, $(IMAGES)) \
-	            . ; \
-	    ) ; \
+	    ( set -x ; docker build $(BUILDFLAGS) . ) ; \
 	fi
 
 push: build
