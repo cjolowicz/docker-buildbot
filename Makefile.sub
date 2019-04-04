@@ -7,27 +7,25 @@ else
     REPO = $(NAMESPACE)/$(NAME)
 endif
 
-IMAGE = $(REPO):$(VERSION)
-
 all: build
 
 build: Dockerfile
 	if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
-	        grep -q '^$(IMAGE)$$' ; then \
+	        grep -q '^$(REPO):$(VERSION)$$' ; then \
 	    docker build \
-	        --tag=$(IMAGE) \
-	        --cache-from=$(IMAGE) \
+	        --tag=$(REPO):$(VERSION) \
+	        --cache-from=$(REPO):$(VERSION) \
 	        . ; \
 	else \
 	    docker build \
-	        --tag=$(IMAGE) \
+	        --tag=$(REPO):$(VERSION) \
 	        . ; \
 	fi
 
 push: build
-	docker push $(IMAGE)
+	docker push $(REPO):$(VERSION)
 
 pull:
-	docker pull $(IMAGE)
+	docker pull $(REPO):$(VERSION)
 
 .PHONY: all build push pull
