@@ -1,22 +1,23 @@
 VERSION = 1.8.0-1
 NAME = $(notdir $(CURDIR))
 
-# Images are tagged by the full version, all of its prefixes, as well
-# as the `latest` tag. Instead of a simple space-separated list, we
-# construct an expression for brace expansion by the shell.
-TAGS = $(shell \
-    echo "$(VERSION)" | \
-    sed 's/[.-]/{,&/g' | ( \
-        read exp ; \
-        numparens=$$(echo "$$exp" | grep -o '{' | wc -l) ; \
-        closeparens=$$(eval "printf '}%.0s' {1..$$numparens}" ) ; \
-        echo "{$$exp$$closeparens,latest}" ))
-
 ifeq ($(strip $(NAMESPACE)),)
     REPO = $(NAME)
 else
     REPO = $(NAMESPACE)/$(NAME)
 endif
+
+# Tag by full version, its prefixes, and `latest`.
+TAGS = $(shell \
+    tag="$(VERSION)" ; \
+    while : ; do \
+        echo "$$tag" ; \
+        [[ "$$tag" =~ [.-] ]] || break ; \
+        tag="$${tag%[.-]*}" ; \
+    done ; \
+    echo "latest")
+
+IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
 
 all: build
 
@@ -25,24 +26,24 @@ build: Dockerfile
 	if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
 	        grep -q '^$(REPO):$(VERSION)$$' ; then \
 	    docker build \
-	        --tag=$(REPO):$(TAGS) \
-	        --cache-from=$(REPO):$(TAGS) \
+	        $(patsubst %, --tag=%, $(IMAGES)) \
+	        --cache-from=$(REPO):$(VERSION) \
 	        . ; \
 	else \
 	    docker build \
-	        --tag=$(REPO):$(TAGS) \
+	        $(patsubst %, --tag=%, $(IMAGES)) \
 	        . ; \
 	fi
 
 push: build
 	@set -x; \
-	for image in $(REPO):$(TAGS) ; do \
+	for image in $(IMAGES) ; do \
 	    docker push $$image ; \
 	done
 
 pull:
 	@set -x; \
-	for image in $(REPO):$(TAGS) ; do \
+	for image in $(IMAGES) ; do \
 	    docker pull $$image ; \
 	done
 
