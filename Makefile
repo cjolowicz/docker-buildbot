@@ -1,4 +1,5 @@
 export TOPDIR = $(shell pwd)
+export NAMESPACE = $(DOCKER_USERNAME)
 
 DIRS = buildbot buildbot-worker-example
 
