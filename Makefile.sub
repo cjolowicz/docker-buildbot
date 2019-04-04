@@ -1,4 +1,4 @@
-VERSION = 1.8.0
+TAGS = 1.8.0  # use brace expansion to specify multiple tags
 NAME = $(notdir $(CURDIR))
 
 ifeq ($(strip $(NAMESPACE)),)
@@ -13,19 +13,23 @@ build: Dockerfile
 	if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
 	        grep -q '^$(REPO):$(VERSION)$$' ; then \
 	    docker build \
-	        --tag=$(REPO):$(VERSION) \
-	        --cache-from=$(REPO):$(VERSION) \
+	        --tag=$(REPO):$(TAGS) \
+	        --cache-from=$(REPO):$(TAGS) \
 	        . ; \
 	else \
 	    docker build \
-	        --tag=$(REPO):$(VERSION) \
+	        --tag=$(REPO):$(TAGS) \
 	        . ; \
 	fi
 
 push: build
-	docker push $(REPO):$(VERSION)
+	for image in $(REPO):$(TAGS) ; do \
+	    docker push $$image ; \
+	done
 
 pull:
-	docker pull $(REPO):$(VERSION)
+	for image in $(REPO):$(TAGS) ; do \
+	    docker pull $$image ; \
+	done
 
 .PHONY: all build push pull
