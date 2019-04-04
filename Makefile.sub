@@ -1,5 +1,16 @@
-TAGS = 1.8.0  # use brace expansion to specify multiple tags
+VERSION = 1.8.0-1
 NAME = $(notdir $(CURDIR))
+
+# Images are tagged by the full version, all of its prefixes, as well
+# as the `latest` tag. Instead of a simple space-separated list, we
+# construct an expression for brace expansion by the shell.
+TAGS = $(shell \
+    echo "$(VERSION)" | \
+    sed 's/[.-]/{,&/g' | ( \
+        read exp ; \
+        numparens=$$(echo "$$exp" | grep -o '{' | wc -l) ; \
+        closeparens=$$(eval "printf '}%.0s' {1..$$numparens}" ) ; \
+        echo "{$$exp$$closeparens,latest}" ))
 
 ifeq ($(strip $(NAMESPACE)),)
     REPO = $(NAME)
