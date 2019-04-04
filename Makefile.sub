@@ -21,6 +21,7 @@ endif
 all: build
 
 build: Dockerfile
+	@set -x; \
 	if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
 	        grep -q '^$(REPO):$(VERSION)$$' ; then \
 	    docker build \
@@ -34,11 +35,13 @@ build: Dockerfile
 	fi
 
 push: build
+	@set -x; \
 	for image in $(REPO):$(TAGS) ; do \
 	    docker push $$image ; \
 	done
 
 pull:
+	@set -x; \
 	for image in $(REPO):$(TAGS) ; do \
 	    docker pull $$image ; \
 	done
