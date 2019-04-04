@@ -1,3 +1,4 @@
+export SHELL = /bin/bash
 export TOPDIR = $(shell pwd)
 export NAMESPACE = $(DOCKER_USERNAME)
 
