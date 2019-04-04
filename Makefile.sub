@@ -22,29 +22,32 @@ IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
 all: build
 
 build: Dockerfile
-	@set -x; \
-	if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
+	@if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
 	        grep -q '^$(REPO):$(VERSION)$$' ; then \
-	    docker build \
-	        $(patsubst %, --tag=%, $(IMAGES)) \
-	        --cache-from=$(REPO):$(VERSION) \
-	        . ; \
+	    ( \
+	        set -x ; \
+	        docker build \
+	            $(patsubst %, --tag=%, $(IMAGES)) \
+	            --cache-from=$(REPO):$(VERSION) \
+	            . ; \
+	    ) ; \
 	else \
-	    docker build \
-	        $(patsubst %, --tag=%, $(IMAGES)) \
-	        . ; \
+	    ( \
+	        set -x ; \
+	        docker build \
+	            $(patsubst %, --tag=%, $(IMAGES)) \
+	            . ; \
+	    ) ; \
 	fi
 
 push: build
-	@set -x; \
-	for image in $(IMAGES) ; do \
-	    docker push $$image ; \
+	@for image in $(IMAGES) ; do \
+	    ( set -x ; docker push $$image ) ; \
 	done
 
 pull:
-	@set -x; \
-	for image in $(IMAGES) ; do \
-	    docker pull $$image ; \
+	@for image in $(IMAGES) ; do \
+	    ( set -x ; docker pull $$image ) ; \
 	done
 
 .PHONY: all build push pull
