@@ -1,4 +1,3 @@
-VERSION = 1.8.0-1
 NAME = $(notdir $(CURDIR))
 
 ifeq ($(strip $(NAMESPACE)),)
