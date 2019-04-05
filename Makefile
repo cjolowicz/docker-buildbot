@@ -1,6 +1,6 @@
 export TOPDIR = $(shell pwd)
 export NAMESPACE = $(DOCKER_USERNAME)
-export VERSION = 1.8.1-1
+export VERSION = 2.0.0-1
 
 DIRS = buildbot buildbot-worker-example
 
