@@ -6,12 +6,47 @@
 
 This repository contains a [Docker image](buildbot/Dockerfile) for
 [buildbot](https://buildbot.net/), the Continuous Integration
-Framework. The container runs an instance of the buildbot master.
-Buildbot workers are spawned as sibling containers, on demand.
+Framework.
 
 This project has a [changelog](CHANGELOG.md).
 
 ## Usage
+
+The image can be used in three primary ways:
+
+- Using `docker run`, as a stand-alone container. The default
+  configuration uses a local worker.
+- Using `docker-compose up`. The default configuration spawns workers
+  on demand as sibling containers, using `DockerLatentWorker`.
+- Using `docker stack deploy` on a Docker Swarm. The default
+  configuration spawns workers on demand as sibling containers on the
+  Swarm, using `DockerSwarmLatentWorker`.
+
+See below for more details for each of the three methods. When the
+container has started up, point your browser to http://localhost:8010
+to access the web interface. Navigate to _Builds_ > _Builders_ >
+_hello-world_, and click the _trigger_ button.
+
+### Plain Docker
+
+The container should be started using the following options:
+
+```
+docker run \
+    --init \
+    --detach \
+    --publish=8010:8010 \
+    --publish=9989:9989 \
+    cjolowicz/buildbot:2.1.0
+```
+
+A sample configuration using a local worker for builds is provided in
+`/etc/buildbot/master.cfg`. To supply your own configuration,
+bind-mount it onto `/etc/buildbot/master.cfg` or derive your own
+image.
+
+Program data such as the buildbot database is stored in a volume
+located at `/var/lib/buildbot`.
 
 ### Docker Compose
 
@@ -23,12 +58,6 @@ git clone https://github.com/cjolowicz/docker-buildbot.git
 cd docker-buildbot
 docker-compose up
 ```
-
-Then point your browser to http://localhost:8010 to access the web
-interface.
-
-Navigate to _Builds_ > _Builders_ > _hello-world_, and click the
-_trigger_ button.
 
 Edit [master.cfg](master.cfg) to configure buildbot. This file is
 bind-mounted into the container at `/etc/buildbot/master.cfg`.
