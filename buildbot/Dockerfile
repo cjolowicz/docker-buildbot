@@ -14,6 +14,7 @@ RUN pip3 --no-cache-dir install --upgrade pip && pip --no-cache-dir install \
 
 COPY buildbot.tac /var/lib/buildbot/
 COPY docker-entrypoint.sh /usr/local/bin/
+COPY master.cfg /etc/buildbot/
 
 RUN adduser -h /var/lib/buildbot -D buildbot
 WORKDIR /var/lib/buildbot
