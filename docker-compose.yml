@@ -8,7 +8,7 @@ services:
       - "9989:9989"
     volumes:
       - buildbot:/var/lib/buildbot
-      - ./master.cfg:/etc/buildbot/master.cfg
+      - ./buildbot/master.cfg:/etc/buildbot/master.cfg
       - /var/run/docker.sock:/var/run/docker.sock
     logging:
       options:

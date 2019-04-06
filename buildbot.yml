@@ -25,5 +25,5 @@ volumes:
   buildbot:
 configs:
   master.cfg:
-    file: ./master.cfg
+    file: buildbot/master.cfg
     name: buildbot-master-cfg-${BUILDBOT_MASTER_CFG_HASH:?BUILDBOT_MASTER_CFG_HASH}
