@@ -22,10 +22,11 @@ The image can be used in three primary ways:
   configuration spawns workers on demand as sibling containers on the
   Swarm, using `DockerSwarmLatentWorker`.
 
-See below for more details for each of the three methods. When the
-container has started up, point your browser to http://localhost:8010
-to access the web interface. Navigate to _Builds_ > _Builders_ >
-_hello-world_, and click the _trigger_ button.
+See below for more details for each of the three methods.
+
+When the container has started up, point your browser to
+http://localhost:8010 to access the web interface. Navigate to
+_Builds_ > _Builders_ > _hello-world_, and click the _trigger_ button.
 
 ### Plain Docker
 
@@ -42,7 +43,7 @@ docker run \
 
 A sample configuration using a local worker for builds is provided in
 `/etc/buildbot/master.cfg`. To supply your own configuration,
-bind-mount it onto `/etc/buildbot/master.cfg` or derive your own
+bind-mount it onto `/etc/buildbot/master.cfg`, or derive your own
 image.
 
 Program data such as the buildbot database is stored in a volume
@@ -72,7 +73,8 @@ eval $(./buildbot-env.sh)
 docker stack deploy --compose-file=buildbot.yml buildbot
 ```
 
-Buildbot workers are spawned as Docker services, using the
+Buildbot workers are spawned as Docker services, using
+`DockerSwarmLatentWorker` from the
 [buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
 plugin.
 
