@@ -1,24 +1,45 @@
-export TOPDIR = $(shell pwd)
-export NAMESPACE = $(DOCKER_USERNAME)
-export VERSION = 2.1.0-1
+NAME = buildbot
+VERSION = 2.1.0-1
+NAMESPACE = $(DOCKER_USERNAME)
 
-DIRS = buildbot
+ifeq ($(strip $(NAMESPACE)),)
+    REPO = $(NAME)
+else
+    REPO = $(NAMESPACE)/$(NAME)
+endif
+
+# Tag by full version, its prefixes, and `latest`.
+TAGS = $(shell \
+    tag="$(VERSION)" ; \
+    while : ; do \
+        echo "$$tag" ; \
+        echo "$$tag" | grep -q [.-] || break ; \
+        tag="$${tag%[.-]*}" ; \
+    done ; \
+    echo "latest")
+
+IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
+IMAGE = $(firstword $(IMAGES))
+BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 
 all: build
 
 build:
-	@set -e ; for dir in $(DIRS) ; do \
-	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir build ; \
-	done
+	@if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
+	        grep -q '^$(IMAGE)$$' ; then \
+	    ( set -x ; docker build $(BUILDFLAGS) --cache-from=$(IMAGE) $(NAME) ) ; \
+	else \
+	    ( set -x ; docker build $(BUILDFLAGS) $(NAME) ) ; \
+	fi
 
-push: login
-	@set -e ; for dir in $(DIRS) ; do \
-	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir push ; \
+push: login build
+	@for image in $(IMAGES) ; do \
+	    ( set -x ; docker push $$image ) ; \
 	done
 
 pull:
-	@for dir in $(DIRS) ; do \
-	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir pull ; \
+	@for image in $(IMAGES) ; do \
+	    ( set -x ; docker pull $$image ) ; \
 	done
 
 login:
