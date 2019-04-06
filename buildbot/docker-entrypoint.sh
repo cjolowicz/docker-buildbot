@@ -11,12 +11,11 @@ buildbot upgrade-master .
 
 chown -R buildbot /var/lib/buildbot
 
-if [ ! -S /var/run/docker.sock ]
+if [ -S /var/run/docker.sock ]
 then
-    echo "/var/run/docker.sock not found" >&2
-    exit 1
+    group=$(stat -c '%g' /var/run/docker.sock)
+else
+    group=buildbot
 fi
 
-gid=$(stat -c '%g' /var/run/docker.sock)
-
-su-exec buildbot:$gid "$@"
+su-exec buildbot:$group "$@"
