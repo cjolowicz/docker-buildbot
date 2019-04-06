@@ -71,16 +71,6 @@ would be the following message when triggering a build:
 
     "invalid origin"
 
-### Running workers outside of Docker
-
-Expose port 9989 on the host if you need to run workers outside of
-Docker. This is done by adding the following line to the `ports`
-section of `docker-compose.yml` or `buildbot.yml`:
-
-```yaml
-      - "9989:9989"
-```
-
 ## Differences from upstream
 
 This Docker image is loosely based on the buildbot
