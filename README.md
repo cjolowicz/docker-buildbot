@@ -136,23 +136,21 @@ version of Docker, you will need to install `tini` in your master and
 worker images, to ensure zombie processes created by builds are reaped
 during the lifetime of each container.
 
-## Building the Docker images
+## Building the Docker image
 
-The supplied [Makefile](Makefile) will build the master image as well
-as an example worker image used by the sample configuration. Building
-the Docker images requires
-[GNU make](https://www.gnu.org/software/make/).
+The supplied [Makefile](Makefile) for building the Docker image
+requires [GNU make](https://www.gnu.org/software/make/).
 
 Here is a list of available targets:
 
 | Target | Description |
 | --- | --- |
-| `make build` | Build the images. |
-| `make push` | Upload the images to Docker Hub. |
-| `make pull` | Download the images from Docker Hub. |
+| `make build` | Build the image. |
+| `make push` | Upload the image to Docker Hub. |
+| `make pull` | Download the image from Docker Hub. |
 | `make login` | Log into Docker Hub. |
 
-Pass `NAMESPACE` to prefix the images with a Docker Hub namespace. The
+Pass `NAMESPACE` to prefix the image with a Docker Hub namespace. The
 default is `DOCKER_USERNAME`.
 
 The `login` target is provided for non-interactive use and looks
