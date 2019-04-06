@@ -5,6 +5,7 @@ services:
     init: true
     ports:
       - "8010:8010"
+      - "9989:9989"
     volumes:
       - buildbot:/var/lib/buildbot
       - ./master.cfg:/etc/buildbot/master.cfg

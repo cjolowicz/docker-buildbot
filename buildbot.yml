@@ -5,6 +5,7 @@ services:
     init: true
     ports:
       - "8010:8010"
+      - "9989:9989"
     volumes:
       - buildbot:/var/lib/buildbot
       - /var/run/docker.sock:/var/run/docker.sock
