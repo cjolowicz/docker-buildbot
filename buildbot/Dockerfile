@@ -20,6 +20,7 @@ RUN adduser -h /var/lib/buildbot -D buildbot
 WORKDIR /var/lib/buildbot
 RUN ln -s /etc/buildbot/master.cfg
 
+VOLUME /var/lib/buildbot
 EXPOSE 8010
 EXPOSE 9989
 
