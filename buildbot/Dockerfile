@@ -18,6 +18,7 @@ COPY master.cfg /etc/buildbot/
 
 RUN adduser -h /var/lib/buildbot -D buildbot
 WORKDIR /var/lib/buildbot
+RUN ln -s /etc/buildbot/master.cfg
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["twistd", "--pidfile=", "--nodaemon", "--python=buildbot.tac"]
