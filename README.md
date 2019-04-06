@@ -60,7 +60,7 @@ cd docker-buildbot
 docker-compose up
 ```
 
-Edit [master.cfg](master.cfg) to configure buildbot. This file is
+Edit [master.cfg](buildbot/master.cfg) to configure buildbot. This file is
 bind-mounted into the container at `/etc/buildbot/master.cfg`.
 
 ### Docker Swarm
