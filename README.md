@@ -65,6 +65,10 @@ such as an `nginx` container running on the same Docker network.
 
 ### Configuring the buildbot URL
 
+```sh
+$ docker run --init -e BUILDBOT_URL=http://some-buildbot-host/ -d cjolowicz/buildbot
+```
+
 Use the `BUILDBOT_URL` environment variable to configure the external
 URL at which the web interface is accessed. This corresponds to the
 `buildbotURL` entry in `BuildmasterConfig`. If `BUILDBOT_URL` is unset
@@ -105,9 +109,42 @@ detailed startup sequence.
 
 ### Configuring buildbot
 
-Buildbot is configured using the file `/etc/buildbot/master.cfg` in
-the container. You can provide your own configuration by bind-mounting
-it onto this location:
+Buildbot is configured using the file
+[`/etc/buildbot/master.cfg`](buildbot/master.cfg) in the container.
+
+#### Using the sample configuration
+
+The sample configuration provided with this image demonstrates the use
+of different types of workers. The behaviour depends on whether the
+Docker daemon is accessible from the container.
+
+If the Docker daemon is not accessible from the container:
+
+- If `WORKERNAME` and `WORKERPASS` are provided, `worker.Worker` is
+  used. This allows a worker to connect to the master at port 9989
+  using the given credentials.
+- Otherwise, `worker.LocalWorker` is used. This will run a worker on
+  the same host and in the same process as the buildbot master.
+
+If the Docker daemon is accessible from the container:
+
+- If the daemon is configured as a manager node on a Docker Swarm,
+  `DockerSwarmLatentWorker` from the
+  [buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
+  plugin is used. This allows the master to spawn workers as swarm
+  services on demand.
+- Otherwise, `worker.DockerLatentWorker` is used. This allows the
+  master to spawn workers as sibling containers on demand.
+
+The sample build will download the source tarball from buildbot's
+[hello-world](https://github.com/buildbot/hello-world) repository and
+run its test suite. The build must be triggered explicitly using the
+_trigger_ button on the builder page.
+
+#### Providing your own configuration
+
+You can provide your own configuration by bind-mounting it onto
+`/etc/buildbot/master.cfg`:
 
 ```sh
 $ docker run --init -v /host/path/master.cfg:/etc/buildbot/master.cfg:ro -d cjolowicz/buildbot
@@ -162,8 +199,10 @@ environment variables:
 ```sh
 $ export BUILDMASTER=buildbot
 $ export WORKERNAME=worker
-$ docker run --init --name $BUILDMASTER -d cjolowicz/buildbot
-$ docker run --init --name $WORKERNAME \
+$ docker network create buildbot-net
+$ docker run --init --network buildbot-net --name $BUILDMASTER \
+    -p 8010:8010 -d cjolowicz/buildbot
+$ docker run --init --network buildbot-net --name $WORKERNAME \
     -e BUILDMASTER -e WORKERNAME -e WORKERPASS=secret \
     -d cjolowicz/buildbot-worker
 ```
@@ -192,8 +231,9 @@ Docker host.
 
 ### Spawning workers on a Docker Swarm cluster
 
-The master container can spawn buildbot workers as sibling containers
-on demand using `worker.DockerSwarmLatentWorker` from the
+When run on a Docker Swarm cluster, the master container can spawn
+buildbot workers as swarm services on demand using
+`worker.DockerSwarmLatentWorker` from the
 [buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
 plugin.
 
@@ -222,11 +262,6 @@ container as a service on Docker Swarm:
 $ eval $(./buildbot-env.sh)
 $ docker stack deploy -c buildbot.yml buildbot
 ```
-
-Buildbot workers are spawned on demand as Docker services, using
-`worker.DockerSwarmLatentWorker` from the
-[buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
-plugin.
 
 The script [buildbot-env.sh](buildbot-env.sh) prints shell commands to
 set up environment variables for buildbot deployment. The output of
