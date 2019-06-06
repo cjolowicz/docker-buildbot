@@ -279,12 +279,12 @@ Building the Docker image requires
 
 Here is a list of available targets:
 
-| Target | Description |
-| --- | --- |
-| `make build` | Build the image. |
-| `make push` | Upload the image to Docker Hub. |
-| `make pull` | Download the image from Docker Hub. |
-| `make login` | Log into Docker Hub. |
+| Target       | Description                         |
+| ---          | ---                                 |
+| `make build` | Build the image.                    |
+| `make push`  | Upload the image to Docker Hub.     |
+| `make pull`  | Download the image from Docker Hub. |
+| `make login` | Log into Docker Hub.                |
 
 Pass `NAMESPACE` to prefix the image with a Docker Hub namespace. The
 default is `DOCKER_USERNAME`.
