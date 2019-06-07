@@ -72,7 +72,13 @@ possible to deploy the buildbot master as a Docker service, with workers being
 spawned on demand and automatically load-balanced across the available swarm
 nodes.
 
-### Starting the container
+### Important options
+
+This section outlines important options when starting the container explicitly
+using `docker run`. Skip to the following sections if you're only interested in
+running the container using Docker Compose or Docker Swarm.
+
+#### Starting the container
 
 ```sh
 $ docker run --init -d cjolowicz/buildbot
@@ -98,7 +104,7 @@ follows:
 $ docker run -d custom-buildbot
 ```
 
-### Exposing the web port
+#### Exposing the web port
 
 ```sh
 $ docker run --init -p 8010:8010 -d cjolowicz/buildbot
@@ -109,7 +115,7 @@ to access the web interface. This is not required if you provide access to the
 web interface by other means, such as an `nginx` container running on the same
 Docker network.
 
-### Configuring the buildbot URL
+#### Configuring the buildbot URL
 
 ```sh
 $ docker run --init -e BUILDBOT_URL=http://some-buildbot-host/ -d cjolowicz/buildbot
@@ -126,7 +132,7 @@ An example would be the following message when triggering a build:
 
     "invalid origin"
 
-### Exposing the buildbot port
+#### Exposing the buildbot port
 
 ```sh
 $ docker run --init -p 9989:9989 -d cjolowicz/buildbot
@@ -136,7 +142,7 @@ Expose port 9989 to allow buildbot workers to access the master at this port on
 the Docker host. This is not required if workers are run as containers on the
 same Docker network.
 
-### Providing a volume for program data
+#### Providing a volume for program data
 
 ```sh
 $ docker run --init -v buildbot-volume:/var/lib/buildbot -d cjolowicz/buildbot
@@ -146,18 +152,18 @@ Program data such as the buildbot database is stored in a volume mounted at
 `/var/lib/buildbot` in the container. It is recommended to provide a named
 volume to persist this data between containers.
 
-### Dropping privileges
+#### Dropping privileges
 
 The Docker container drops privileges on startup using
 [su-exec](https://github.com/ncopa/su-exec). See the provided [entrypoint
 script](buildbot/docker-entrypoint.sh) for the detailed startup sequence.
 
-### Configuring buildbot
+#### Configuring buildbot
 
 Buildbot is configured using the file
 [`/etc/buildbot/master.cfg`](buildbot/master.cfg) in the container.
 
-#### Using the sample configuration
+##### Using the sample configuration
 
 The sample configuration provided with this image demonstrates the use of
 different types of workers. The behaviour depends on whether the Docker daemon
@@ -186,7 +192,7 @@ The sample build will download the source tarball from buildbot's
 test suite. The build must be triggered explicitly using the _trigger_ button on
 the builder page.
 
-#### Providing your own configuration
+##### Providing your own configuration
 
 You can provide your own configuration by bind-mounting it onto
 `/etc/buildbot/master.cfg`:
@@ -210,7 +216,7 @@ follows:
 $ docker run -d custom-buildbot
 ```
 
-### Running builds in the master container
+#### Running builds in the master container
 
 This can be achieved by using `worker.LocalWorker` in the buildbot
 configuration, as demonstrated by the sample [master.cfg](buildbot/master.cfg).
@@ -227,7 +233,7 @@ your own `Dockerfile`. Also note that Alpine uses
 [musl](https://www.musl-libc.org/) instead of
 [glibc](https://www.gnu.org/software/libc/).
 
-### Running builds in worker containers
+#### Running builds in worker containers
 
 See
 [cjolowicz/buildbot-worker](https://hub.docker.com/r/cjolowicz/buildbot-worker)
@@ -250,7 +256,7 @@ $ docker run --init --network buildbot-net --name $WORKERNAME \
     -d cjolowicz/buildbot-worker
 ```
 
-### Bind-mounting the Docker daemon socket
+#### Bind-mounting the Docker daemon socket
 
 The master container can spawn buildbot workers as sibling containers on demand
 using `worker.DockerLatentWorker`. The containers are stopped and removed when
@@ -271,7 +277,7 @@ Note that this has important [security
 implications](https://docs.docker.com/engine/security/security/). Essentially,
 access to the Docker daemon socket implies root privileges on the Docker host.
 
-### Spawning workers on a Docker Swarm cluster
+#### Spawning workers on a Docker Swarm cluster
 
 When run on a Docker Swarm cluster, the master container can spawn buildbot
 workers as swarm services on demand using `worker.DockerSwarmLatentWorker` from
