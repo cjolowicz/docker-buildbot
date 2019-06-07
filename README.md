@@ -53,6 +53,25 @@ and click the _trigger_ button.
 To stop the container, press `CTRL+C` in the terminal where `docker-compose` was
 invoked.
 
+### Modes of operation
+
+The [buildbot
+architecture](http://docs.buildbot.net/current/manual/introduction.html#system-architecture)
+consists of a single build master and one or more workers, connected in a star
+topology. This image supports different modes of operation, which may be
+combined freely:
+
+- Workers can be run on external hosts.
+- Workers can be run inside the master container (_local worker_).
+- Workers can be run as sibling containers.
+- Workers can be spawned on demand as sibling containers, by the master.
+
+Both master and workers can also be run as services on a [Docker
+Swarm](https://docs.docker.com/engine/swarm/) cluster. For example, it is
+possible to deploy the buildbot master as a Docker service, with workers being
+spawned on demand and automatically load-balanced across the available swarm
+nodes.
+
 ### Starting the container
 
 ```sh
