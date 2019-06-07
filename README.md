@@ -84,17 +84,14 @@ nodes.
 
 ### Sample configuration
 
+The sample build downloads the source tarball from buildbot's
+[hello-world](https://github.com/buildbot/hello-world) repository and runs its
+test suite. The build must be triggered explicitly using the _trigger_ button on
+the builder page.
+
 The [sample configuration](buildbot/master.cfg) provided with this image
 demonstrates the use of different types of workers. The behaviour depends on
 whether the Docker daemon is accessible from the container.
-
-If the Docker daemon is not accessible from the container:
-
-- If `WORKERNAME` and `WORKERPASS` are provided, `worker.Worker` is used. This
-  allows a worker to connect to the master at port 9989 using the given
-  credentials.
-- Otherwise, `worker.LocalWorker` is used. This will run a worker on the same
-  host and in the same process as the buildbot master.
 
 If the Docker daemon is accessible from the container:
 
@@ -106,10 +103,13 @@ If the Docker daemon is accessible from the container:
 - Otherwise, `worker.DockerLatentWorker` is used. This allows the master to
   spawn workers as sibling containers on demand.
 
-The sample build downloads the source tarball from buildbot's
-[hello-world](https://github.com/buildbot/hello-world) repository and runs its
-test suite. The build must be triggered explicitly using the _trigger_ button on
-the builder page.
+If the Docker daemon is not accessible from the container:
+
+- If the `WORKERNAME` and `WORKERPASS` environment variables are provided,
+  `worker.Worker` is used. This allows a worker to connect to the master at port
+  9989 using the given credentials.
+- Otherwise, `worker.LocalWorker` is used. This will run a worker on the same
+  host and in the same process as the buildbot master.
 
 ### Important options
 
