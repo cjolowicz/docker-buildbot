@@ -253,15 +253,9 @@ manager in your own `Dockerfile`. Note that Alpine uses
 
 #### Running builds in worker containers
 
-See
-[cjolowicz/buildbot-worker](https://hub.docker.com/r/cjolowicz/buildbot-worker)
-for a collection of buildbot worker images for various platforms. Worker
-containers can be long-running or spawned on demand. See the next section for
-the latter option.
-
-Use `worker.Worker` in the master configuration, and supply the master hostname,
-worker name, and worker password to the worker container via environment
-variables:
+Builds can be run in long-running sibling containers using `worker.Worker` in
+the master configuration. Supply the master hostname, worker name, and worker
+password to the worker container via environment variables:
 
 ```sh
 $ export BUILDMASTER=buildbot
@@ -273,6 +267,10 @@ $ docker run --init --network buildbot-net --name $WORKERNAME \
     -e BUILDMASTER -e WORKERNAME -e WORKERPASS=secret \
     -d cjolowicz/buildbot-worker
 ```
+
+See
+[cjolowicz/buildbot-worker](https://hub.docker.com/r/cjolowicz/buildbot-worker)
+for a collection of buildbot worker images for various platforms.
 
 #### Spawning workers as sibling containers
 
@@ -286,9 +284,8 @@ container, as described [above](#bind-mounting-the-docker-daemon-socket).
 
 #### Spawning workers on a Docker Swarm cluster
 
-When run on a Docker Swarm cluster, the master container can spawn buildbot
-workers as swarm services on demand using `worker.DockerSwarmLatentWorker` from
-the
+The master container can spawn buildbot workers as Docker Swarm services on
+demand using `worker.DockerSwarmLatentWorker` from the
 [buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
 plugin.
 
@@ -323,8 +320,8 @@ environment variables for buildbot deployment. The output of this script should
 be evaluated by the calling shell, as shown above. This is required after every
 change to `master.cfg`, for the new configuration to get deployed to the stack.
 
-If `BUILDBOT_URL` is unset but `DOCKER_HOST` is set, its value is used to
-provide a default for `BUILDBOT_URL`.
+If `DOCKER_HOST` is set in the environment, its value is used to provide a
+default for `BUILDBOT_URL`.
 
 ## Building the Docker image
 
