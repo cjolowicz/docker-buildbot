@@ -142,15 +142,15 @@ An example would be the following message when triggering a build:
 
     "invalid origin"
 
-#### Providing a volume for program data
+#### Using a named volume for program data
 
 ```sh
-$ docker run --init -v buildbot-volume:/var/lib/buildbot -d cjolowicz/buildbot
+$ docker run --init -v buildbot:/var/lib/buildbot -d cjolowicz/buildbot
 ```
 
 Program data such as the buildbot database is stored in a volume mounted at
 `/var/lib/buildbot` in the container. It is recommended to provide a named
-volume to persist this data between containers.
+volume to share this data between successive runs of the image.
 
 #### Dropping privileges
 
