@@ -40,9 +40,6 @@ push: login build
 	    ( set -x ; docker push $$image ) ; \
 	done
 
-pull:
-	docker pull $(CACHE)
-
 login:
 	@echo "$(DOCKER_PASSWORD)" | docker login -u $(DOCKER_USERNAME) --password-stdin
 
@@ -59,4 +56,4 @@ ci: login
 	    done ; \
 	fi
 
-.PHONY: all build push pull login ci
+.PHONY: all build push login ci
