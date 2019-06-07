@@ -152,11 +152,18 @@ Program data such as the buildbot database is stored in a volume mounted at
 `/var/lib/buildbot` in the container. It is recommended to provide a named
 volume to share this data between successive runs of the image.
 
-#### Dropping privileges
+#### User and group ID
 
-The Docker container drops privileges on startup using
-[su-exec](https://github.com/ncopa/su-exec). See the provided [entrypoint
-script](buildbot/docker-entrypoint.sh) for the detailed startup sequence.
+On startup, the image drops privileges for the buildbot process using
+[su-exec](https://github.com/ncopa/su-exec):
+
+```sh
+$ id
+uid=1000(buildbot) gid=1000(buildbot) groups=1000(buildbot)
+```
+
+If the Docker daemon socket is bind-mounted into the container, the process runs
+with the group ID of the socket owner instead.
 
 #### Configuring buildbot
 
