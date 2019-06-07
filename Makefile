@@ -31,8 +31,8 @@ build:
 	docker build $(BUILDFLAGS) $(NAME)
 
 push: login build
-	@for image in $(IMAGES) ; do \
-	    ( set -x ; docker push $$image ) ; \
+	for image in $(IMAGES) ; do \
+	    docker push $$image ; \
 	done
 
 login:
