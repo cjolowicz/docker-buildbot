@@ -8,14 +8,23 @@ This repository contains a [Docker image](buildbot/Dockerfile) for
 [buildbot](https://buildbot.net/), the Continuous Integration Framework. The
 image runs the buildbot master with a sample configuration.
 
-This project has a [changelog](CHANGELOG.md).
-
 ## Supported tags and respective `Dockerfile` links
 
 - [`2.1.0`, `2.1`, `2`, `latest`](https://github.com/cjolowicz/docker-buildbot/blob/v2.1.0-1/buildbot/Dockerfile)
 - [`2.0.1`, `2.0`](https://github.com/cjolowicz/docker-buildbot/blob/v2.0.1-1/buildbot/Dockerfile)
 - [`1.8.1`, `1.8`, `1`](https://github.com/cjolowicz/docker-buildbot/blob/v1.8.1-1/buildbot/Dockerfile)
 - [`1.8.0`](https://github.com/cjolowicz/docker-buildbot/blob/v1.8.0-1/buildbot/Dockerfile)
+
+## Quick reference
+
+- **Where to file issues**:<br/>
+  https://github.com/cjolowicz/docker-buildbot/issues
+- **Maintained by**:<br/>
+  [Claudio Jolowicz](https://github.com/cjolowicz)
+- **Supported Docker versions**:<br/>
+  [the latest release](https://github.com/docker/docker-ce/releases/latest)
+- **Changelog**:<br/>
+  https://github.com/cjolowicz/docker-buildbot/blob/master/CHANGELOG.md
 
 ## How to use this image
 
