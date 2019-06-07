@@ -28,12 +28,7 @@ BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 all: build
 
 build:
-	@if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
-	        grep -q '^$(CACHE)$$' ; then \
-	    ( set -x ; docker build $(BUILDFLAGS) --cache-from=$(CACHE) $(NAME) ) ; \
-	else \
-	    ( set -x ; docker build $(BUILDFLAGS) $(NAME) ) ; \
-	fi
+	docker build $(BUILDFLAGS) $(NAME)
 
 push: login build
 	@for image in $(IMAGES) ; do \
