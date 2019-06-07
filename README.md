@@ -40,6 +40,13 @@ implement a system that matches your workflow and grows with your organization.
 
 The image runs the buildbot master with a sample configuration.
 
+1. [Getting started](#getting-started)
+2. [Modes of operation](#modes-of-operation)
+3. [Sample configuration](#sample-configuration)
+4. [Important options](#important-options)
+5. [Use with Docker Compose](#use-with-docker-compose)
+6. [Use with Docker Swarm](#use-with-docker-swarm)
+
 ### Getting started
 
 To get started quickly, clone the Git repository and run `docker-compose up`
