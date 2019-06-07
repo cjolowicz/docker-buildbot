@@ -115,6 +115,16 @@ to access the web interface. This is not required if you provide access to the
 web interface by other means, such as an `nginx` container running on the same
 Docker network.
 
+#### Exposing the buildbot port
+
+```sh
+$ docker run --init -p 9989:9989 -d cjolowicz/buildbot
+```
+
+Expose port 9989 to allow buildbot workers to access the master at this port on
+the Docker host. This is not required if workers are run as containers on the
+same Docker network.
+
 #### Configuring the buildbot URL
 
 ```sh
@@ -131,16 +141,6 @@ Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
 An example would be the following message when triggering a build:
 
     "invalid origin"
-
-#### Exposing the buildbot port
-
-```sh
-$ docker run --init -p 9989:9989 -d cjolowicz/buildbot
-```
-
-Expose port 9989 to allow buildbot workers to access the master at this port on
-the Docker host. This is not required if workers are run as containers on the
-same Docker network.
 
 #### Providing a volume for program data
 
