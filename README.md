@@ -26,6 +26,16 @@ image runs the buildbot master with a sample configuration.
 - **Changelog**:<br/>
   https://github.com/cjolowicz/docker-buildbot/blob/master/CHANGELOG.md
 
+## What is buildbot?
+
+Buildbot is an open-source framework for automating software build, test, and
+release processes. Buildbot can automate all aspects of the software development
+cycle: Continuous Integration, Continuous Deployment, Release Management, and
+any other process you can imagine. Buildbot is a framework in which you
+implement a system that matches your workflow and grows with your organization.
+
+[![Buildbot Logo](https://github.com/buildbot/buildbot-media/blob/master/images/full_logo.png)](https://buildbot.net/)
+
 ## How to use this image
 
 ### Getting started
