@@ -234,18 +234,20 @@ $ docker run -d custom-buildbot
 
 #### Running builds in the master container
 
-This can be achieved by using `worker.LocalWorker` in the buildbot
-configuration, as demonstrated by the sample [master.cfg](buildbot/master.cfg).
+Builds can be run in the master container using `worker.LocalWorker` in the
+buildbot configuration, as demonstrated by the sample
+[master.cfg](buildbot/master.cfg).
 
-You need to ensure that the image has the required build toolchain installed. By
-default, the master image only provides the following Alpine packages:
+Ensure that the master image has the required build toolchain installed. The
+following Alpine packages are already installed:
 
 - [build-base](https://pkgs.alpinelinux.org/package/v3.9/main/x86_64/build-base)
 - [python3-dev](https://pkgs.alpinelinux.org/package/v3.9/main/x86_64/python3-dev)
 - [openssl-dev](https://pkgs.alpinelinux.org/package/v3.9/main/x86_64/openssl-dev)
 
-Additional tools will need to be installed using the `apk` package manager in
-your own `Dockerfile`. Also note that Alpine uses
+You can install additional tools using the
+[apk](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management) package
+manager in your own `Dockerfile`. Note that Alpine uses
 [musl](https://www.musl-libc.org/) instead of
 [glibc](https://www.gnu.org/software/libc/).
 
