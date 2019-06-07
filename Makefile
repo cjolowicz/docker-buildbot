@@ -22,15 +22,15 @@ TAGS = $(shell \
     fi)
 
 IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
-IMAGE = $(firstword $(IMAGES))
+CACHE = $(firstword $(IMAGES))
 BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 
 all: build
 
 build:
 	@if docker image ls --format='{{.Repository}}:{{.Tag}}' | \
-	        grep -q '^$(IMAGE)$$' ; then \
-	    ( set -x ; docker build $(BUILDFLAGS) --cache-from=$(IMAGE) $(NAME) ) ; \
+	        grep -q '^$(CACHE)$$' ; then \
+	    ( set -x ; docker build $(BUILDFLAGS) --cache-from=$(CACHE) $(NAME) ) ; \
 	else \
 	    ( set -x ; docker build $(BUILDFLAGS) $(NAME) ) ; \
 	fi
