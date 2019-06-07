@@ -181,6 +181,20 @@ Program data such as the buildbot database is stored in a volume mounted at
 `/var/lib/buildbot` in the container. It is recommended to provide a named
 volume to share this data between successive runs of the image.
 
+#### Bind-mounting the Docker daemon socket
+
+```sh
+$ docker run --init -v /var/run/docker.sock:/var/run/docker.sock -d cjolowicz/buildbot
+```
+
+The master container can spawn workers as sibling containers on demand. These
+containers are stopped and removed when the build is finished. This requires
+that the Docker daemon socket is bind-mounted into the master container.
+
+Note that this has important [security
+implications](https://docs.docker.com/engine/security/security/). Essentially,
+access to the Docker daemon socket implies root privileges on the Docker host.
+
 #### User and group ID
 
 On startup, the image drops privileges for the buildbot process using
@@ -258,26 +272,15 @@ $ docker run --init --network buildbot-net --name $WORKERNAME \
     -d cjolowicz/buildbot-worker
 ```
 
-#### Bind-mounting the Docker daemon socket
+#### Spawning workers as sibling containers
 
 The master container can spawn buildbot workers as sibling containers on demand
-using `worker.DockerLatentWorker`. The containers are stopped and removed when
-the build is finished.
-
-Unlike long-running worker containers, on-demand workers are provided
-automatically with an environment that allows them to connect back to the
-master.
+using `worker.DockerLatentWorker`. Unlike long-running worker containers,
+on-demand workers are provided automatically with an environment that allows
+them to connect back to the master.
 
 This requires that the Docker daemon socket is bind-mounted into the master
-container:
-
-```sh
-$ docker run --init -v /var/run/docker.sock:/var/run/docker.sock -d cjolowicz/buildbot
-```
-
-Note that this has important [security
-implications](https://docs.docker.com/engine/security/security/). Essentially,
-access to the Docker daemon socket implies root privileges on the Docker host.
+container, as described [above](#bind-mounting-the-docker-daemon-socket).
 
 #### Spawning workers on a Docker Swarm cluster
 
