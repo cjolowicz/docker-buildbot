@@ -10,6 +10,13 @@ image runs the buildbot master with a sample configuration.
 
 This project has a [changelog](CHANGELOG.md).
 
+## Supported tags and respective `Dockerfile` links
+
+- [`2.1.0`, `2.1`, `2`, `latest`](https://github.com/cjolowicz/docker-buildbot/blob/v2.1.0-1/buildbot/Dockerfile)
+- [`2.0.1`, `2.0`](https://github.com/cjolowicz/docker-buildbot/blob/v2.0.1-1/buildbot/Dockerfile)
+- [`1.8.1`, `1.8`, `1`](https://github.com/cjolowicz/docker-buildbot/blob/v1.8.1-1/buildbot/Dockerfile)
+- [`1.8.0`](https://github.com/cjolowicz/docker-buildbot/blob/v1.8.0-1/buildbot/Dockerfile)
+
 ## How to use this image
 
 ### Getting started
