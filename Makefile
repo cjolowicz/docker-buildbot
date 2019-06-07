@@ -9,7 +9,10 @@ else
     REPO = $(NAMESPACE)/$(NAME)
 endif
 
-CACHE = $(REPO):master
+GIT_TAG = $(shell git describe --exact-match 2>/dev/null || true)
+GIT_BRANCH = master
+
+CACHE = $(REPO):$(GIT_BRANCH)
 
 # Tag by full version, its prefixes, and `latest`.
 TAGS = $(shell \
@@ -22,8 +25,6 @@ TAGS = $(shell \
     if [ "$(VERSION)" = "$(LATEST)" ] ; then \
         echo "latest" ; \
     fi)
-
-GIT_TAG = $(shell git describe --exact-match 2>/dev/null || true)
 
 ifeq ($(strip $(TRAVIS_TAG)),)
     IMAGES = $(CACHE)
