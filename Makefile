@@ -10,7 +10,7 @@ else
 endif
 
 GIT_TAG = $(shell git describe --exact-match 2>/dev/null || true)
-GIT_BRANCH = master
+GIT_BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 
 CACHE = $(REPO):$(GIT_BRANCH)
 
