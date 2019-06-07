@@ -22,14 +22,14 @@ The `login` target is provided for non-interactive use and looks for
 
 ## Upgrading upstream
 
-```shell
+```sh
 scripts/upgrade.sh $version # 2.0.0
 git push
 ```
 
 ## Releasing
 
-```shell
+```sh
 $EDITOR CHANGELOG.md
 scripts/release.sh
 git push --all --follow-tags
