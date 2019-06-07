@@ -78,7 +78,7 @@ This section outlines important options when starting the container explicitly
 using `docker run`. Skip to the following sections if you're only interested in
 running the container using Docker Compose or Docker Swarm.
 
-#### Starting the container
+#### Reaping zombie processes
 
 ```sh
 $ docker run --init -d cjolowicz/buildbot
