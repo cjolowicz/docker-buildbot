@@ -34,7 +34,7 @@ cycle: Continuous Integration, Continuous Deployment, Release Management, and
 any other process you can imagine. Buildbot is a framework in which you
 implement a system that matches your workflow and grows with your organization.
 
-[![Buildbot Logo](https://github.com/buildbot/buildbot-media/blob/master/images/full_logo.png)](https://buildbot.net/)
+[![Buildbot Logo](https://raw.githubusercontent.com/buildbot/buildbot-media/master/images/full_logo.png)](https://buildbot.net/)
 
 ## How to use this image
 
