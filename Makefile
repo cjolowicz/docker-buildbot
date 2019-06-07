@@ -23,6 +23,8 @@ TAGS = $(shell \
         echo "latest" ; \
     fi)
 
+GIT_TAG = $(shell git describe --exact-match 2>/dev/null || true)
+
 IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
 BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 
@@ -46,7 +48,7 @@ ci: login
 	else \
 	    docker build $(BUILDFLAGS) $(NAME) ; \
 	fi ; \
-	if [ -n "$(TRAVIS_TAG)" ] ; then \
+	if [ -n "$(GIT_TAG)" ] ; then \
 	    for image in $(IMAGES) ; do \
 	        docker push $$image ; \
 	    done ; \

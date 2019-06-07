@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-  - make ci
+  - make ci GIT_TAG=$TRAVIS_TAG
