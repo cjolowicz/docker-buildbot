@@ -9,7 +9,7 @@ else
     REPO = $(NAMESPACE)/$(NAME)
 endif
 
-CACHE = $(REPO):$(VERSION)
+CACHE = $(REPO):master
 
 # Tag by full version, its prefixes, and `latest`.
 TAGS = $(shell \
@@ -25,7 +25,12 @@ TAGS = $(shell \
 
 GIT_TAG = $(shell git describe --exact-match 2>/dev/null || true)
 
-IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
+ifeq ($(strip $(TRAVIS_TAG)),)
+    IMAGES = $(CACHE)
+else
+    IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
+endif
+
 BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 
 all: build
@@ -48,10 +53,8 @@ ci: login
 	else \
 	    docker build $(BUILDFLAGS) $(NAME) ; \
 	fi ; \
-	if [ -n "$(GIT_TAG)" ] ; then \
-	    for image in $(IMAGES) ; do \
-	        docker push $$image ; \
-	    done ; \
-	fi
+	for image in $(IMAGES) ; do \
+	    docker push $$image ; \
+	done
 
 .PHONY: all build push login ci
