@@ -123,9 +123,9 @@ running the container using Docker Compose or Docker Swarm.
 7. [User and group ID](#user-and-group-id)
 8. [Configuring buildbot](#configuring-buildbot)
 9. [Running builds in the master container](#running-builds-in-the-master-container)
-10.[Running builds in worker containers](#running-builds-in-worker-containers)
-11.[Spawning workers as sibling containers](#spawning-workers-as-sibling-containers)
-12.[Spawning workers on a Docker Swarm cluster](#spawning-workers-on-a-docker-swarm-cluster)
+10. [Running builds in worker containers](#running-builds-in-worker-containers)
+11. [Spawning workers as sibling containers](#spawning-workers-as-sibling-containers)
+12. [Spawning workers on a Docker Swarm cluster](#spawning-workers-on-a-docker-swarm-cluster)
 
 #### Reaping zombie processes
 
