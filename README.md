@@ -4,9 +4,9 @@
 
 # docker-buildbot
 
-This repository contains a [Docker image](buildbot/Dockerfile) for
-[buildbot](https://buildbot.net/), the Continuous Integration Framework. The
-image runs the buildbot master with a sample configuration.
+This repository contains a [Docker image](https://www.docker.com/) for
+[buildbot](https://buildbot.net/), the Continuous Integration framework. It is
+not affiliated with the official [buildbot organization](https://github.com/buildbot).
 
 ## Supported tags and respective `Dockerfile` links
 
@@ -37,6 +37,8 @@ implement a system that matches your workflow and grows with your organization.
 [![Buildbot Logo](https://github.com/buildbot/buildbot-media/blob/master/images/full_logo.png)](https://buildbot.net/)
 
 ## How to use this image
+
+The image runs the buildbot master with a sample configuration.
 
 ### Getting started
 
