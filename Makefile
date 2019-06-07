@@ -1,5 +1,6 @@
 NAME = buildbot
 VERSION = 2.3.1-1
+LATEST  = 2.3.1-1
 NAMESPACE = $(DOCKER_USERNAME)
 
 ifeq ($(strip $(NAMESPACE)),)
@@ -16,7 +17,9 @@ TAGS = $(shell \
         echo "$$tag" | grep -q [.-] || break ; \
         tag="$${tag%[.-]*}" ; \
     done ; \
-    echo "latest")
+    if [ "$(VERSION)" = "$(LATEST)" ] ; then \
+        echo "latest" ; \
+    fi)
 
 IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
 IMAGE = $(firstword $(IMAGES))
