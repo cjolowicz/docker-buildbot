@@ -9,6 +9,8 @@ else
     REPO = $(NAMESPACE)/$(NAME)
 endif
 
+CACHE = $(REPO):$(VERSION)
+
 # Tag by full version, its prefixes, and `latest`.
 TAGS = $(shell \
     tag="$(VERSION)" ; \
@@ -22,7 +24,6 @@ TAGS = $(shell \
     fi)
 
 IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
-CACHE = $(firstword $(IMAGES))
 BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 
 all: build
