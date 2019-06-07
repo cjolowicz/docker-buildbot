@@ -72,6 +72,35 @@ possible to deploy the buildbot master as a Docker service, with workers being
 spawned on demand and automatically load-balanced across the available swarm
 nodes.
 
+### Sample configuration
+
+The [sample configuration](buildbot/master.cfg) provided with this image
+demonstrates the use of different types of workers. The behaviour depends on
+whether the Docker daemon is accessible from the container.
+
+If the Docker daemon is not accessible from the container:
+
+- If `WORKERNAME` and `WORKERPASS` are provided, `worker.Worker` is used. This
+  allows a worker to connect to the master at port 9989 using the given
+  credentials.
+- Otherwise, `worker.LocalWorker` is used. This will run a worker on the same
+  host and in the same process as the buildbot master.
+
+If the Docker daemon is accessible from the container:
+
+- If the daemon is configured as a manager node on a Docker Swarm,
+  `DockerSwarmLatentWorker` from the
+  [buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
+  plugin is used. This allows the master to spawn workers as swarm services on
+  demand.
+- Otherwise, `worker.DockerLatentWorker` is used. This allows the master to
+  spawn workers as sibling containers on demand.
+
+The sample build downloads the source tarball from buildbot's
+[hello-world](https://github.com/buildbot/hello-world) repository and runs its
+test suite. The build must be triggered explicitly using the _trigger_ button on
+the builder page.
+
 ### Important options
 
 This section outlines important options when starting the container explicitly
@@ -167,49 +196,15 @@ with the group ID of the socket owner instead.
 
 #### Configuring buildbot
 
-Buildbot is configured using the file
-[`/etc/buildbot/master.cfg`](buildbot/master.cfg) in the container.
-
-##### Using the sample configuration
-
-The sample configuration provided with this image demonstrates the use of
-different types of workers. The behaviour depends on whether the Docker daemon
-is accessible from the container.
-
-If the Docker daemon is not accessible from the container:
-
-- If `WORKERNAME` and `WORKERPASS` are provided, `worker.Worker` is used. This
-  allows a worker to connect to the master at port 9989 using the given
-  credentials.
-- Otherwise, `worker.LocalWorker` is used. This will run a worker on the same
-  host and in the same process as the buildbot master.
-
-If the Docker daemon is accessible from the container:
-
-- If the daemon is configured as a manager node on a Docker Swarm,
-  `DockerSwarmLatentWorker` from the
-  [buildbot-docker-swarm-worker](https://pypi.org/project/buildbot-docker-swarm-worker/)
-  plugin is used. This allows the master to spawn workers as swarm services on
-  demand.
-- Otherwise, `worker.DockerLatentWorker` is used. This allows the master to
-  spawn workers as sibling containers on demand.
-
-The sample build will download the source tarball from buildbot's
-[hello-world](https://github.com/buildbot/hello-world) repository and run its
-test suite. The build must be triggered explicitly using the _trigger_ button on
-the builder page.
-
-##### Providing your own configuration
-
-You can provide your own configuration by bind-mounting it onto
-`/etc/buildbot/master.cfg`:
+Buildbot is configured using the file `/etc/buildbot/master.cfg` in the
+container. You can provide your own configuration by bind-mounting it onto this
+location:
 
 ```sh
 $ docker run --init -v /host/path/master.cfg:/etc/buildbot/master.cfg:ro -d cjolowicz/buildbot
 ```
 
-This can also be accomplished more cleanly using a simple `Dockerfile` (in
-`/host/path/`):
+This can also be accomplished more cleanly using a simple `Dockerfile`:
 
 ```Dockerfile
 FROM cjolowicz/buildbot
