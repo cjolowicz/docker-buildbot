@@ -41,9 +41,7 @@ push: login build
 	done
 
 pull:
-	@for image in $(IMAGES) ; do \
-	    ( set -x ; docker pull $$image ) ; \
-	done
+	docker pull $(CACHE)
 
 login:
 	@echo "$(DOCKER_PASSWORD)" | docker login -u $(DOCKER_USERNAME) --password-stdin
