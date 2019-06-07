@@ -97,13 +97,13 @@ $ docker run --init -e BUILDBOT_URL=http://some-buildbot-host/ -d cjolowicz/buil
 ```
 
 Use the `BUILDBOT_URL` environment variable to configure the external URL at
-which the web interface is accessed. This corresponds to the `buildbotURL` entry
-in `BuildmasterConfig`. If `BUILDBOT_URL` is unset or empty, `buildbotURL`
+which the web interface is accessed. If `BUILDBOT_URL` is unset or empty, it
 defaults to `http://localhost:8010`.
 
 An incorrect buildbot URL results in errors in the web interface, because
-requests to the API violate the _Same Origin Policy_. An example would be the
-following message when triggering a build:
+requests to the API violate the [Same Origin
+Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
+An example would be the following message when triggering a build:
 
     "invalid origin"
 
