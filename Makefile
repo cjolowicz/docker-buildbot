@@ -46,4 +46,17 @@ pull:
 login:
 	@echo "$(DOCKER_PASSWORD)" | docker login -u $(DOCKER_USERNAME) --password-stdin
 
-.PHONY: all build push pull login
+ci: login
+	@set -ex; \
+	if docker pull $(CACHE) ; then \
+	    docker build $(BUILDFLAGS) --cache-from=$(CACHE) $(NAME) ; \
+	else \
+	    docker build $(BUILDFLAGS) $(NAME) ; \
+	fi ; \
+	if [ -n "$(TRAVIS_TAG)" ] ; then \
+	    for image in $(IMAGES) ; do \
+	        docker push $$image ; \
+	    done ; \
+	fi
+
+.PHONY: all build push pull login ci
