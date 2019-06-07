@@ -114,6 +114,19 @@ This section outlines important options when starting the container explicitly
 using `docker run`. Skip to the following sections if you're only interested in
 running the container using Docker Compose or Docker Swarm.
 
+1. [Reaping zombie processes](#reaping-zombie-processes)
+2. [Exposing the web port](#exposing-the-web-port)
+3. [Exposing the buildbot port](#exposing-the-buildbot-port)
+4. [Configuring the buildbot URL](#configuring-the-buildbot-url)
+5. [Using a named volume for program data](#using-a-named-volume-for-program-data)
+6. [Bind-mounting the Docker daemon socket](#bind-mounting-the-docker-daemon-socket)
+7. [User and group ID](#user-and-group-id)
+8. [Configuring buildbot](#configuring-buildbot)
+9. [Running builds in the master container](#running-builds-in-the-master-container)
+10.[Running builds in worker containers](#running-builds-in-worker-containers)
+11.[Spawning workers as sibling containers](#spawning-workers-as-sibling-containers)
+12.[Spawning workers on a Docker Swarm cluster](#spawning-workers-on-a-docker-swarm-cluster)
+
 #### Reaping zombie processes
 
 ```sh
