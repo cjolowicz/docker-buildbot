@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0-1] - 2019-06-07
+### Changed
+- Upgrade to buildbot 2.3.0
+
 ## [2.2.0-1] - 2019-06-07
 ### Changed
 - Upgrade to buildbot 2.2.0
@@ -56,7 +60,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial version: buildbot 1.8.0
 
-[Unreleased]: https://github.com/cjolowicz/docker-buildbot/compare/2.2.0-1...HEAD
+[Unreleased]: https://github.com/cjolowicz/docker-buildbot/compare/2.3.0-1...HEAD
+[2.3.0-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.2.0-1...2.3.0-1
 [2.2.0-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.1.0-2...2.2.0-1
 [2.1.0-2]: https://github.com/cjolowicz/docker-buildbot/compare/v2.1.0-1...2.1.0-2
 [2.1.0-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.0.1-1...2.1.0-1

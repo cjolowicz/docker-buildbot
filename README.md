@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/cjolowicz/docker-buildbot.svg?branch=master)](https://travis-ci.com/cjolowicz/docker-buildbot)
 [![Docker Hub](https://img.shields.io/docker/cloud/build/cjolowicz/buildbot.svg)](https://hub.docker.com/r/cjolowicz/buildbot)
-[![Buildbot](https://img.shields.io/badge/buildbot-2.2.0-brightgreen.svg)](https://buildbot.net/)
+[![Buildbot](https://img.shields.io/badge/buildbot-2.3.0-brightgreen.svg)](https://buildbot.net/)
 
 # docker-buildbot
 
@@ -10,7 +10,8 @@ not affiliated with the official buildbot organization.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`2.2.0`, `2.2`, `2`, `latest`](https://github.com/cjolowicz/docker-buildbot/blob/v2.2.0-1/buildbot/Dockerfile)
+- [`2.3.0`, `2.3`, `2`, `latest`](https://github.com/cjolowicz/docker-buildbot/blob/v2.3.0-1/buildbot/Dockerfile)
+- [`2.2.0`, `2.2`](https://github.com/cjolowicz/docker-buildbot/blob/v2.2.0-1/buildbot/Dockerfile)
 - [`2.1.0`, `2.1`](https://github.com/cjolowicz/docker-buildbot/blob/v2.1.0-2/buildbot/Dockerfile)
 - [`2.0.1`, `2.0`](https://github.com/cjolowicz/docker-buildbot/blob/v2.0.1-1/buildbot/Dockerfile)
 - [`1.8.1`, `1.8`, `1`](https://github.com/cjolowicz/docker-buildbot/blob/v1.8.1-1/buildbot/Dockerfile)
