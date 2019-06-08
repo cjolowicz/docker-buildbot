@@ -126,14 +126,15 @@ Use the supplied [buildbot.yml](buildbot.yml) file to start the master container
 as a service on Docker Swarm:
 
 ```shell
-$ eval $(./buildbot-env.sh)
+$ eval $(scripts/buildbot-env.sh)
 $ docker stack deploy -c buildbot.yml buildbot
 ```
 
-The script [buildbot-env.sh](buildbot-env.sh) prints shell commands to set up
-environment variables for buildbot deployment. The output of this script should
-be evaluated by the calling shell, as shown above. This is required after every
-change to `master.cfg`, for the new configuration to get deployed to the stack.
+The script [buildbot-env.sh](scripts/buildbot-env.sh) prints shell commands to
+set up environment variables for buildbot deployment. The output of this script
+should be evaluated by the calling shell, as shown above. This is required after
+every change to `master.cfg`, for the new configuration to get deployed to the
+stack.
 
 If `DOCKER_HOST` is set in the environment, its value is used to provide a
 default for `BUILDBOT_URL`.
