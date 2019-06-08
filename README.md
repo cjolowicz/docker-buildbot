@@ -114,8 +114,8 @@ If the Docker daemon is not accessible from the container:
 ### Important options
 
 This section outlines important options when starting the container explicitly
-using `docker run`. Skip to the following sections if you're only interested in
-running the container using Docker Compose or Docker Swarm.
+using `docker run`. Skip to the [following section](#use-with-docker-compose) if
+you don't need this level of detail.
 
 1. [Reaping zombie processes](#reaping-zombie-processes)
 2. [Exposing the web port](#exposing-the-web-port)
