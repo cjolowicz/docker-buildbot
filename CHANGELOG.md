@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.1-2] - 2019-06-08
+### Changed
+- Upload cache image from branch builds.
+- Use branch name to tag cache image.
+- Add `LATEST` variable to control which version is tagged as `latest`. This is
+  necessary when upstream provides maintenance releases for older versions.
+- Refactor Makefile.
+
+### Added
+- Add script for CI.
+- Add make target for CI.
+
+### Removed
+- Remove `pull` target from Makefile.
+
 ## [2.3.1-1] - 2019-06-07
 ### Changed
 - Upgrade to buildbot 2.3.1
