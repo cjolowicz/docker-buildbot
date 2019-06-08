@@ -4,9 +4,8 @@
 
 # docker-buildbot
 
-This repository contains a [Docker](https://www.docker.com/) image for
-[buildbot](https://buildbot.net/), the Continuous Integration framework. It is
-not affiliated with the official buildbot organization.
+This repository contains an inofficial [Docker](https://www.docker.com/) image
+for [buildbot](https://buildbot.net/), the Continuous Integration framework.
 
 ## Supported tags and respective `Dockerfile` links
 
