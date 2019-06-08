@@ -44,19 +44,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Do not require git.
 - Name build steps.
 - Refactoring:
-  - Remove redundant entry in BuildmasterConfig.
-  - Blacken buildbot/master.cfg.
-  - Refactor buildbot/master.cfg.
-  - Fix E722 (do not use bare 'except').
-  - Avoid redefinition of 'worker' in master.cfg.
+  - Remove redundant entry in `BuildmasterConfig`.
+  - Apply `black` code reformatter.
+  - Miscellaneous refactoring.
+  - Fix E722 (do not use bare `except`).
+  - Avoid redefinition of `worker`.
 
 #### Docker image
 - Expose ports 8010 and 9989.
 - Declare `/var/lib/buildbot` as volume.
 - Store configuration file in image. (The image now also works as a stand-alone
   container, which can be fired up using `docker run` without further options.)
-- Do not require /var/run/docker.sock.
-- Create master.cfg symlink at build-time. (Allow invoking buildbot without
+- Do not require `/var/run/docker.sock`.
+- Create `master.cfg` symlink at build-time. (Allow invoking buildbot without
   using the entrypoint. Previously, this was not possible because buildbot did
   not find its configuration file.)
 
@@ -68,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Expose port 9989 on the host.
 
 #### Makefile
-- Merge Makefile.sub into Makefile.
+- Merge `Makefile.sub` into `Makefile`.
 
 ### Added
 - Add script for upgrading the upstream package.
@@ -93,7 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgrade to buildbot 1.8.2
 
 ## [1.8.1-2] - 2019-06-08
-_Backport from `2.1.0-2` and `2.3.1-2`_
+_Backport from [2.1.0-2](#210-2---2019-06-07) and [2.3.1-2](#231-2---2019-06-08)_
 
 ## [1.8.1-1] - 2019-04-05
 ### Changed
