@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-  - ./travis.sh
+  - scripts/travis.sh
