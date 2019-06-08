@@ -1,27 +1,61 @@
-export TOPDIR = $(shell pwd)
-export NAMESPACE = $(DOCKER_USERNAME)
-export VERSION = 1.8.1-1
+NAME = buildbot
+VERSION = 1.8.1-1
+LATEST  = 2.3.1-1
+NAMESPACE = $(DOCKER_USERNAME)
 
-DIRS = buildbot buildbot-worker-example
+ifeq ($(strip $(NAMESPACE)),)
+    REPO = $(NAME)
+else
+    REPO = $(NAMESPACE)/$(NAME)
+endif
+
+GIT_TAG = $(shell git describe --exact-match 2>/dev/null || true)
+GIT_BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
+
+CACHE = $(REPO):$(GIT_BRANCH)
+
+# Tag by full version, its prefixes, and `latest`.
+TAGS = $(shell \
+    tag="$(VERSION)" ; \
+    while : ; do \
+        echo "$$tag" ; \
+        echo "$$tag" | grep -q [.-] || break ; \
+        tag="$${tag%[.-]*}" ; \
+    done ; \
+    if [ "$(VERSION)" = "$(LATEST)" ] ; then \
+        echo "latest" ; \
+    fi)
+
+ifeq ($(strip $(TRAVIS_TAG)),)
+    IMAGES = $(CACHE)
+else
+    IMAGES = $(patsubst %, $(REPO):%, $(TAGS))
+endif
+
+BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 
 all: build
 
 build:
-	@set -e ; for dir in $(DIRS) ; do \
-	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir build ; \
-	done
+	docker build $(BUILDFLAGS) $(NAME)
 
-push: login
-	@set -e ; for dir in $(DIRS) ; do \
-	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir push ; \
-	done
-
-pull:
-	@for dir in $(DIRS) ; do \
-	    $(MAKE) -f $(TOPDIR)/Makefile.sub -C $$dir pull ; \
+push: login build
+	for image in $(IMAGES) ; do \
+	    docker push $$image ; \
 	done
 
 login:
 	@echo "$(DOCKER_PASSWORD)" | docker login -u $(DOCKER_USERNAME) --password-stdin
 
-.PHONY: all build push pull login
+ci: login
+	@set -ex; \
+	if docker pull $(CACHE) ; then \
+	    docker build $(BUILDFLAGS) --cache-from=$(CACHE) $(NAME) ; \
+	else \
+	    docker build $(BUILDFLAGS) $(NAME) ; \
+	fi ; \
+	for image in $(IMAGES) ; do \
+	    docker push $$image ; \
+	done
+
+.PHONY: all build push login ci
