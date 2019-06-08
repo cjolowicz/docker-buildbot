@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Move `buildbot-env.sh` to `scripts` directory.
+- Rename `buildbot` directory to `docker`.
 
 ## [2.3.1-2] - 2019-06-08
 ### Changed

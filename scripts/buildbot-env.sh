@@ -3,7 +3,7 @@
 shell=$(basename $SHELL)
 
 # config names must be maximum 64 characters in length
-BUILDBOT_MASTER_CFG_HASH=$(sha256sum buildbot/master.cfg | cut -c-16)
+BUILDBOT_MASTER_CFG_HASH=$(sha256sum docker/master.cfg | cut -c-16)
 
 if [ -z "$BUILDBOT_URL" -a -n "$DOCKER_HOST" ]
 then
