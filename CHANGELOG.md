@@ -34,34 +34,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgrade to buildbot 2.2.0
 
 ## [2.1.0-2] - 2019-06-07
-### Added
-- The image now also works as a stand-alone container, which can be fired up
-  using `docker run` without further options.
-- Allow invoking buildbot without using the entrypoint. Previously, this was not
-  possible because buildbot did not find its configuration file.
-- Extend and improve documentation.
-- Support `WORKERNAME` and `WORKERPASS` environment variables.
-- Support fish shell in `buildbot-env.sh` script.
-- Add maintainer scripts for upgrading the upstream package, and for releasing
-  this image.
-
 ### Changed
-- Expose ports 8010 and 9989 in the `Dockerfile`.
+- Extend and improve documentation.
+
+#### Configuration
+- Pull worker images by default.
+- Support `WORKERNAME` and `WORKERPASS` environment variables.
+- Halt build on failure.
+- Do not require git.
+- Name build steps.
+- Refactoring:
+  - Remove redundant entry in BuildmasterConfig.
+  - Blacken buildbot/master.cfg.
+  - Refactor buildbot/master.cfg.
+  - Fix E722 (do not use bare 'except').
+  - Avoid redefinition of 'worker' in master.cfg.
+
+#### Docker image
+- Expose ports 8010 and 9989.
+- Declare `/var/lib/buildbot` as volume.
+- Store configuration file in image. (The image now also works as a stand-alone
+  container, which can be fired up using `docker run` without further options.)
+- Do not require /var/run/docker.sock.
+- Create master.cfg symlink at build-time. (Allow invoking buildbot without
+  using the entrypoint. Previously, this was not possible because buildbot did
+  not find its configuration file.)
+
+#### Docker Swarm
+- Expose port 9989.
+- Support fish shell in `buildbot-env.sh` script.
+
+#### Docker Compose
 - Expose port 9989 on the host.
-- Declare `/var/lib/buildbot` as a volume.
-- Simplify the make cruft.
-- Changes in sample configuration:
-  - Pull worker images by default.
-  - Halt build on failure.
-  - Do not require git.
-  - Name build steps.
-  - Code cleanup.
+
+#### Makefile
+- Merge Makefile.sub into Makefile.
+
+### Added
+- Add script for upgrading the upstream package.
+- Add script for releasing this image.
 
 ### Removed
-- Remove the example worker image. We don't need it anymore because the build no
-  longer requires git.
-- Remove the contrib directory. These files defined general-purpose Docker
-  stacks which are not specific to buildbot.
+- Remove `contrib` directory. (These files defined general-purpose Docker stacks
+  which are not specific to buildbot.)
+- Remove `buildbot-worker-example` image. (We don't need it anymore because the
+  build no longer requires git.)
 
 ## [2.1.0-1] - 2019-04-05
 ### Changed
@@ -70,6 +87,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.1-1] - 2019-04-05
 ### Changed
 - Upgrade to buildbot 2.0.1
+
+## [1.8.2-1] - 2019-06-08
+### Changed
+- Upgrade to buildbot 1.8.2
+
+## [1.8.1-2] - 2019-06-08
+_Backport from `2.1.0-2` and `2.3.1-2`_
 
 ## [1.8.1-1] - 2019-04-05
 ### Changed
@@ -86,4 +110,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [2.1.0-2]: https://github.com/cjolowicz/docker-buildbot/compare/v2.1.0-1...2.1.0-2
 [2.1.0-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.0.1-1...2.1.0-1
 [2.0.1-1]: https://github.com/cjolowicz/docker-buildbot/compare/v1.8.1-1...2.0.1-1
+[1.8.2-1]: https://github.com/cjolowicz/docker-buildbot/compare/v1.8.1-2...v1.8.2-1
+[1.8.1-2]: https://github.com/cjolowicz/docker-buildbot/compare/v1.8.1-1...v1.8.1-2
 [1.8.1-1]: https://github.com/cjolowicz/docker-buildbot/compare/v1.8.0-1...v1.8.1-1
