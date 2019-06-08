@@ -37,7 +37,7 @@ BUILDFLAGS = $(patsubst %, --tag=%, $(IMAGES))
 all: build
 
 build:
-	docker build $(BUILDFLAGS) $(NAME)
+	docker build $(BUILDFLAGS) docker
 
 push: login build
 	for image in $(IMAGES) ; do \
@@ -50,9 +50,9 @@ login:
 ci: login
 	@set -ex; \
 	if docker pull $(CACHE) ; then \
-	    docker build $(BUILDFLAGS) --cache-from=$(CACHE) $(NAME) ; \
+	    docker build $(BUILDFLAGS) --cache-from=$(CACHE) docker ; \
 	else \
-	    docker build $(BUILDFLAGS) $(NAME) ; \
+	    docker build $(BUILDFLAGS) docker ; \
 	fi ; \
 	for image in $(IMAGES) ; do \
 	    docker push $$image ; \
