@@ -46,9 +46,9 @@ The image runs the buildbot master with a sample configuration.
 1. [Getting started](#getting-started)
 2. [Modes of operation](#modes-of-operation)
 3. [Sample configuration](#sample-configuration)
-4. [Important options](#important-options)
-5. [Use with Docker Compose](#use-with-docker-compose)
-6. [Use with Docker Swarm](#use-with-docker-swarm)
+4. [Use with Docker Compose](#use-with-docker-compose)
+5. [Use with Docker Swarm](#use-with-docker-swarm)
+6. [Important options](#important-options)
 
 ### Getting started
 
@@ -111,11 +111,37 @@ If the Docker daemon is not accessible from the container:
 - Otherwise, `worker.LocalWorker` is used. This will run a worker on the same
   host and in the same process as the buildbot master.
 
+### Use with Docker Compose
+
+Use the supplied [docker-compose.yml](docker-compose.yml) file to start the
+master container with sensible defaults:
+
+```shell
+$ docker-compose up -d
+```
+
+### Use with Docker Swarm
+
+Use the supplied [buildbot.yml](buildbot.yml) file to start the master container
+as a service on Docker Swarm:
+
+```shell
+$ eval $(./buildbot-env.sh)
+$ docker stack deploy -c buildbot.yml buildbot
+```
+
+The script [buildbot-env.sh](buildbot-env.sh) prints shell commands to set up
+environment variables for buildbot deployment. The output of this script should
+be evaluated by the calling shell, as shown above. This is required after every
+change to `master.cfg`, for the new configuration to get deployed to the stack.
+
+If `DOCKER_HOST` is set in the environment, its value is used to provide a
+default for `BUILDBOT_URL`.
+
 ### Important options
 
 This section outlines important options when starting the container explicitly
-using `docker run`. Skip to the [following section](#use-with-docker-compose) if
-you don't need this level of detail.
+using `docker run`.
 
 1. [Reaping zombie processes](#reaping-zombie-processes)
 2. [Exposing the web port](#exposing-the-web-port)
@@ -318,33 +344,6 @@ bind-mounted into the master container.
 
 Consider using the provided [buildbot.yml](buildbot.yml) to deploy a Docker
 stack with sensible defaults. See below for details.
-
-### Use with Docker Compose
-
-Use the supplied [docker-compose.yml](docker-compose.yml) file to start the
-master container with sensible defaults:
-
-```shell
-$ docker-compose up -d
-```
-
-### Use with Docker Swarm
-
-Use the supplied [buildbot.yml](buildbot.yml) file to start the master container
-as a service on Docker Swarm:
-
-```shell
-$ eval $(./buildbot-env.sh)
-$ docker stack deploy -c buildbot.yml buildbot
-```
-
-The script [buildbot-env.sh](buildbot-env.sh) prints shell commands to set up
-environment variables for buildbot deployment. The output of this script should
-be evaluated by the calling shell, as shown above. This is required after every
-change to `master.cfg`, for the new configuration to get deployed to the stack.
-
-If `DOCKER_HOST` is set in the environment, its value is used to provide a
-default for `BUILDBOT_URL`.
 
 ## Related projects
 
