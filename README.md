@@ -48,7 +48,7 @@ The image runs the buildbot master with a sample configuration.
 3. [Sample configuration](#sample-configuration)
 4. [Use with Docker Compose](#use-with-docker-compose)
 5. [Use with Docker Swarm](#use-with-docker-swarm)
-6. [Important options](#important-options)
+6. [Use with Docker CLI](#use-with-docker-cli)
 
 ### Getting started
 
@@ -138,7 +138,7 @@ change to `master.cfg`, for the new configuration to get deployed to the stack.
 If `DOCKER_HOST` is set in the environment, its value is used to provide a
 default for `BUILDBOT_URL`.
 
-### Important options
+### Use with Docker CLI
 
 This section outlines important options when starting the container explicitly
 using `docker run`.
