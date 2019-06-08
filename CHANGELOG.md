@@ -103,7 +103,8 @@ _Backport from `2.1.0-2` and `2.3.1-2`_
 ### Added
 - Initial version: buildbot 1.8.0
 
-[Unreleased]: https://github.com/cjolowicz/docker-buildbot/compare/2.3.1-1...HEAD
+[Unreleased]: https://github.com/cjolowicz/docker-buildbot/compare/2.3.1-2...HEAD
+[2.3.1-2]: https://github.com/cjolowicz/docker-buildbot/compare/v2.3.1-1...2.3.1-2
 [2.3.1-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.3.0-1...2.3.1-1
 [2.3.0-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.2.0-1...2.3.0-1
 [2.2.0-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.1.0-2...2.2.0-1
