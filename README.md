@@ -343,7 +343,8 @@ manager node of the Docker Swarm, and that the Docker daemon socket is
 bind-mounted into the master container.
 
 Consider using the provided [buildbot.yml](buildbot.yml) to deploy a Docker
-stack with sensible defaults. See below for details.
+stack with sensible defaults. See the section about [Docker
+Swarm](#use-with-docker-swarm) for details.
 
 ## Related projects
 
