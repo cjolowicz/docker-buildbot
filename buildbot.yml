@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   buildbot:
-    image: cjolowicz/buildbot:2.3.1
+    image: cjolowicz/buildbot:2.4.0
     init: true
     ports:
       - "8010:8010"

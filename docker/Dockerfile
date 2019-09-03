@@ -7,7 +7,7 @@ RUN apk add --no-cache \
     python3-dev \
     su-exec
 
-ENV BUILDBOT_VERSION 2.3.1
+ENV BUILDBOT_VERSION 2.4.0
 RUN pip3 --no-cache-dir install --upgrade pip && pip --no-cache-dir install \
     buildbot[bundle,tls]==$BUILDBOT_VERSION \
     buildbot-docker-swarm-worker
