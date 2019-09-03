@@ -9,7 +9,8 @@ for [buildbot](https://buildbot.net/), the Continuous Integration framework.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`2.3.1`, `2.3`, `2`, `latest`](https://github.com/cjolowicz/docker-buildbot/blob/v2.3.1-2/buildbot/Dockerfile)
+- [`2.4.0`, `2.4`, `2`, `latest`](https://github.com/cjolowicz/docker-buildbot/blob/v2.4.0-1/docker/Dockerfile)
+- [`2.3.1`, `2.3`](https://github.com/cjolowicz/docker-buildbot/blob/v2.3.1-2/buildbot/Dockerfile)
 - [`2.3.0`](https://github.com/cjolowicz/docker-buildbot/blob/v2.3.0-1/buildbot/Dockerfile)
 - [`2.2.0`, `2.2`](https://github.com/cjolowicz/docker-buildbot/blob/v2.2.0-1/buildbot/Dockerfile)
 - [`2.1.0`, `2.1`](https://github.com/cjolowicz/docker-buildbot/blob/v2.1.0-2/buildbot/Dockerfile)
