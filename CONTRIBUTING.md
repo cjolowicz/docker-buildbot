@@ -30,7 +30,10 @@ git push
 ## Releasing
 
 ```sh
+$EDITOR README.md
+git commit --all --message="Update README.md"
 $EDITOR CHANGELOG.md
+git commit --all --message="Update CHANGELOG.md"
 scripts/release.sh
 git push --all --follow-tags
 github-release $version
