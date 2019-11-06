@@ -7,7 +7,7 @@ oldversion=$(sed -n "s/^VERSION = //p" Makefile | cut -d- -f1)
 
 sed -i "s/$oldversion-[0-9]*/$version-1/" Makefile
 
-for file in docker/Dockerfile docker/master.cfg buildbot.yml docker-compose.yml
+for file in docker/Dockerfile buildbot.yml docker-compose.yml
 do
     sed -i "s/$oldversion/$version/" $file
 done
