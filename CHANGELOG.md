@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [2.5.0-1] - 2019-11-06
+### Changed
+- Upgrade to buildbot 2.5.0
+
 ## [2.4.1-1] - 2019-09-21
 ### Changed
 - Upgrade to buildbot 2.4.1
@@ -112,7 +116,8 @@ _Backport from [2.1.0-2](#210-2---2019-06-07) and [2.3.1-2](#231-2---2019-06-08)
 ### Added
 - Initial version: buildbot 1.8.0
 
-[Unreleased]: https://github.com/cjolowicz/docker-buildbot/compare/v2.4.1-1...HEAD
+[Unreleased]: https://github.com/cjolowicz/docker-buildbot/compare/v2.5.0-1...HEAD
+[2.5.0-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.4.1-1...v2.5.0-1
 [2.4.1-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.4.0-1...v2.4.1-1
 [2.4.0-1]: https://github.com/cjolowicz/docker-buildbot/compare/v2.3.1-2...v2.4.0-1
 [2.3.1-2]: https://github.com/cjolowicz/docker-buildbot/compare/v2.3.1-1...v2.3.1-2
