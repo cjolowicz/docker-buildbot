@@ -1,6 +1,6 @@
 NAME = buildbot
-VERSION = 2.4.1-1
-LATEST  = 2.4.1-1
+VERSION = 2.5.0-1
+LATEST  = 2.5.0-1
 NAMESPACE = $(DOCKER_USERNAME)
 
 ifeq ($(strip $(NAMESPACE)),)
